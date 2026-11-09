@@ -11,5 +11,19 @@ public class Table {
         this.customer = null;
     }
 
-    
+    public int getTableId() {
+        return tableId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public boolean isAvailable() {
+        return customer == null;
+    }
+
+    public boolean isFree() {
+        return isAvailable();
+    }
 }
