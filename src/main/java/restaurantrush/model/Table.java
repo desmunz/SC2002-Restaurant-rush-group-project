@@ -26,4 +26,12 @@ public class Table {
     public boolean isFree() {
         return isAvailable();
     }
+
+    public void seatCustomer(){
+        // ill get to it later
+    }
+
+    public void releaseTable{
+        // ill gert to it later
+    }
 }
