@@ -16,4 +16,12 @@ public class Staff {
     public boolean isAvailable() {
         return !taskCompleted;
     }
+
+    protected void completeTask(){
+        //ill finish it later
+    }
+
+    public void resetForNewturn(){
+        taskCompleted = false;
+    }
 }
