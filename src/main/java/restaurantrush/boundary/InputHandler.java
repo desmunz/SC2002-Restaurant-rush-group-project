@@ -1,3 +1,4 @@
+
 package restaurantrush.boundary;
 
 import java.util.Scanner;
@@ -9,5 +10,11 @@ public class InputHandler {
 
     public InputHandler() {
         scanner = new Scanner(System.in);
+    }
+    public String readLine(String prompt) throws EOFException {
+        System.out.print(prompt);
+        if (!scanner.hasNextLine()) {
+            throw new EOFException("Terminal input ended.");
+        }
     }
 }
