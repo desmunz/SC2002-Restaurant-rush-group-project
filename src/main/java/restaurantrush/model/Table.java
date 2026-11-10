@@ -42,7 +42,17 @@ public class Table {
         this.customer = customer;
     }
     
-    public void releaseTable {
+    public void releaseTable(){
+        if (customer == null){
+            return;
+        }
+
+        customerStatus state = customer.getState();
+        if (state != CustomerStatus.PAID && state != CustomerStatus.ABANDONED){
+            throw new IllegalStateException("Table can only be released after payment or abandonment");
+        }
+
+        customer.clearTable();
         this.customer = null;
     }
 }
