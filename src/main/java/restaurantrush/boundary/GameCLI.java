@@ -96,6 +96,46 @@ public class GameCLI {
         }
     }
 
+    public String getManagerChoice() throws EOFException {
+        String phase = controller.getCurrentPhase();
+        while (true) {
+            System.out.println("\nCurrent phase: " + phase);
+            if ("WAITER".equals(phase)) {
+                System.out.println("1) Seat a customer");
+                System.out.println("2) Take an order");
+                System.out.println("3) Serve an order");
+                System.out.println("4) Pass");
+                int choice = inputHandler.readInt("Choose an action: ");
+                switch (choice) {
+                    case 1:
+                        return "WAITER:SEAT:" + readPositiveId("Customer ID: ");
+                    case 2:
+                        return "WAITER:TAKE_ORDER:" + readPositiveId("Customer ID: ");
+                    case 3:
+                        return "WAITER:SERVE:" + readPositiveId("Order ID: ");
+                    case 4:
+                        return "PHASE:PASS";
+                    default:
+                        displayMessage("Please choose a number from 1 to 4.");
+                }
+            } else if ("CHEF".equals(phase)) {
+                System.out.println("1) Prepare an order");
+                System.out.println("2) Pass");
+                int choice = inputHandler.readInt("Choose an action: ");
+                switch (choice) {
+                    case 1:
+                        return "CHEF:PREPARE:" + readPositiveId("Order ID: ");
+                    case 2:
+                        return "PHASE:PASS";
+                    default:
+                        displayMessage("Please choose 1 or 2.");
+                }
+            } else {
+                throw new IllegalStateException("Unknown staff phase: " + phase);
+            }
+        }
+    }
+
     private int readPositiveId(String prompt) throws EOFException {
         while (true) {
             int id = inputHandler.readInt(prompt);
