@@ -18,10 +18,19 @@ public class Staff {
     }
 
     protected void completeTask(){
-        //ill finish it later
-    }
+        if (!isAvailable()) {
+            throw new IllegalStateException(
+                "This staff member has already acted this turn."
+            );
+        }
+
+        taskCompleted = true;
+        }
 
     public void resetForNewturn(){
         taskCompleted = false;
     }
 }
+
+    
+
