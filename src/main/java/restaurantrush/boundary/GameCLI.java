@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import restaurantrush.control.GameController;
+import restaurantrush.control.GameResult;
 import restaurantrush.model.Order;
 import restaurantrush.model.Table;
 import restaurantrush.model.customer.Customer;
@@ -106,4 +107,9 @@ public class GameCLI {
     public void displayMessage(String message) {
         System.out.println(message);
     }
+
+    public void displayResult(GameResult result) {
+        System.out.println("Game over! Result: " + result);
+    }
+    
 }
