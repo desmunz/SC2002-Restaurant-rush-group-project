@@ -31,14 +31,21 @@ public class Table {
     {
         if (customer == null) 
         {
-            throw new IllegalArgumentException("Customer cannot be null.");
+            throw new IllegalArgumentException("Customer must not be null.");
         }
 
         if (!isAvailable()) 
         {
             throw new IllegalStateException("Table is already occupied.");
         }
+
+        if(!customer.isWaitingForTable()){
+            throw new IllegalStateException(
+                "Customer is not waiting for a table."
+            )
+        }
         
+        customer.seatAt(this);
         this.customer = customer;
     }
     
@@ -47,9 +54,9 @@ public class Table {
             return;
         }
 
-        customerStatus state = customer.getState();
+        CustomerStatus state = customer.getState();
         if (state != CustomerStatus.PAID && state != CustomerStatus.ABANDONED){
-            throw new IllegalStateException("Table can only be released after payment or abandonment");
+            throw new IllegalStateException("Table can only be released after payment or abandonment.");
         }
 
         customer.clearTable();
