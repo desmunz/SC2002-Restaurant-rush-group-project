@@ -24,8 +24,18 @@ public class Main {
         GameState gameState = new GameState();
         gameState.configureRestaurant(tables, waiter, chef, cashier);
 
-    int[] arrivalTurns = {1, 4, 7, 10, 13, 16};
+        int[] arrivalTurns = {1, 4, 7, 10, 13, 16};
 
         for (int i = 0; i < arrivalTurns.length; i++) {
             gameState.scheduleCustomerArrival(arrivalTurns[i], new RegularCustomer(i + 1));
         }
+
+        Menu menu = new Menu();
+        StandardPricingPolicy pricingPolicy = new StandardPricingPolicy();
+
+        GameController controller = new GameController(gameState, menu, pricingPolicy);
+
+        GameCLI cli = new GameCLI(controller);
+        cli.run();
+    }
+}
