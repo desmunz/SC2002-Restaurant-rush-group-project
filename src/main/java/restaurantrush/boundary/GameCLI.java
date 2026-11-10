@@ -1,5 +1,7 @@
 //aidan this is for you
 
+package restaurantrush.boundary;
+
 import java.io.EOFException;
 import java.util.List;
 import java.util.Locale;
