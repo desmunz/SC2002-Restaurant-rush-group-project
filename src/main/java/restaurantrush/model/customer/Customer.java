@@ -157,4 +157,17 @@ public abstract class Customer {
         }
         state = CustomerStatus.ABANDONED;
     }
+    
+
+    protected List<MenuItem> getAvailableMenuItems(Menu menu){
+        if (menu  == null){
+            throw new IllegalArgumentExption("Menu must not be null.");
+        }
+        List<MenuItem> items = menu.getItems();
+        if (items.isEmpty()){
+            throw new IllegalArgumentException("Menu must contain at least one item.");
+        }
+        return items;
+        
+    }
 }
