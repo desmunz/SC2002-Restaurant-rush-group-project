@@ -27,11 +27,22 @@ public class Table {
         return isAvailable();
     }
 
-    public void seatCustomer(){
-        // ill get to it later
-    }
+    public void seatCustomer(Customer customer)
+    {
+        if (customer == null) 
+        {
+            throw new IllegalArgumentException("Customer cannot be null.");
+        }
 
-    public void releaseTable{
-        // ill gert to it later
+        if (!isAvailable()) 
+        {
+            throw new IllegalStateException("Table is already occupied.");
+        }
+        
+        this.customer = customer;
+    }
+    
+    public void releaseTable {
+        this.customer = null;
     }
 }

@@ -77,28 +77,72 @@ public class Order {
         return servedTurn;
     }
 
-    public void advancePreparation(int currentTurn) {
+    public void advancePreparation(int currentTurn) 
+    {
+        validateTurn(currentTurn);
         
-    }
+        if (status != OrderStatus.PENDING) 
+        {
+            throw new IllegalStateException("Only pending orders can be prepared.");
+        }
 
-    public boolean canServe(int currentTurn) {
-
-    }
-
-    public void markServed(int currentTurn) {
-
-    }
-
-    public void markPaid(int currentTurn) {
-
-    }
-
-    public void cancel() {
-
-    }
-
-    private void validateTurn(int currentTurn) {
+        preparationProgress++;
         
+        if (preparationProgress >= item.getPreparationUnits()) 
+        {
+            status = OrderStatus.READY;
+            readyTurn = currentTurn;
+        }
+    }
+    
+    public boolean canServe(int currentTurn) 
+    {
+        validateTurn(currentTurn);
+        return status == OrderStatus.READY && readyTurn < currentTurn;
+    }
+
+    public void markServed(int currentTurn) 
+    {
+        if (!canServe(currentTurn)) 
+        {
+            throw new IllegalStateException("Order is not ready to be served.");
+        }
+        status = OrderStatus.SERVED;
+        servedTurn = currentTurn;
+    }
+
+    public void markPaid(int currentTurn) 
+    {
+        validateTurn(currentTurn);
+
+        if (status != OrderStatus.SERVED) 
+        {
+            throw new IllegalStateException("Only served orders can be paid.");
+        }
+
+        if (currentTurn <= servedTurn) 
+        {
+            throw new IllegalStateException("Cannot pay on the serving turn.");
+        }
+
+        status = OrderStatus.PAID;
+    }
+
+    public void cancel() 
+    {
+        if (status == OrderStatus.PAID || status == OrderStatus.CANCELLED) 
+        {
+            throw new IllegalStateException("Order cannot be cancelled.");
+        }
+        status = OrderStatus.CANCELLED;
+    }
+
+    private void validateTurn(int currentTurn) 
+    {
+        if (currentTurn < 1) 
+        {
+            throw new IllegalArgumentException("Turn must be positive.");
+        }
     }
 
 }
