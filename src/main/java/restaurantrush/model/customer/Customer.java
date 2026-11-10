@@ -52,38 +52,48 @@ public abstract class Customer {
     }
 
     public void seatAt(Table table) {
-
+        this.table = table;
+        state = CustomerStatus.SEATED;
     }
 
     public void placeOrder(Order order) {
-
+        currentOrder = order;
+        state = CustomerStatus.WAITING_FOR_FOOD;
     }
 
     public void receiveOrder(Order order, int currentTurn) {
-
+        servedTurn = currentTurn;
+        state = CustomerStatus.SERVED;
     }
 
     public void markReadyToPay() {
-
+        state = CustomerStatus.READY_TO_PAY;
     }
 
     public void markPaid() {
-
+        state = CustomerStatus.PAID;
     }
 
     public void loseSatisfaction(int amount) {
-
+        satisfaction = Math.max(0, satisfaction - amount);
+        if (satisfaction == 0) {
+            state = CustomerStatus.ABANDONED;
+        }
     }
 
     public void processWaitingTurn() {
-        
+        loseSatisfaction(getWaitingLoss());
     }
 
+    public void clearTable() {
+        table = null;
+    }
+    
     public boolean isWaitingForService() {
-
+        return state == CustomerStatus.SEATED || state == CustomerStatus.WAITING_FOR_FOOD;
     }
 
     public void markDeparted() {
-
+        state = CustomerStatus.ABANDONED;
     }
 }
