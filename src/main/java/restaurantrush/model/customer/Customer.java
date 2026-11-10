@@ -6,6 +6,7 @@ import restaurantrush.model.enums.CustomerStatus;
 import restaurantrush.model.enums.OrderStatus;
 import restaurantrush.model.menu.Menu;
 import restaurantrush.model.menu.MenuItem;
+import java.util.List;
 
 public abstract class Customer {
     private final int id;
@@ -145,7 +146,7 @@ public abstract class Customer {
     }
     
     public boolean isWaitingForService() {
-        return state == CustomerStatus.SEATED || state == CustomerStatus.WAITING_FOR_FOOD;
+        return state == CustomerStatus.QUEUED || state == CustomerStatus.SEATED || state == CustomerStatus.WAITING_FOR_FOOD;
     }
 
     public void markDeparted() {
@@ -161,13 +162,13 @@ public abstract class Customer {
 
     protected List<MenuItem> getAvailableMenuItems(Menu menu){
         if (menu  == null){
-            throw new IllegalArgumentExption("Menu must not be null.");
+            throw new IllegalArgumentException("Menu must not be null.");
         }
         List<MenuItem> items = menu.getItems();
         if (items.isEmpty()){
             throw new IllegalArgumentException("Menu must contain at least one item.");
         }
         return items;
-        
+
     }
 }
