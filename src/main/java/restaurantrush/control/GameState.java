@@ -48,7 +48,7 @@ public class GameState {
             List<Table> initialTables,
             Waiter waiter,
             Chef chef,
-            Cashier cashier,
+            Cashier cashier
             //add host here later on
             ) {
         if (configured) {
