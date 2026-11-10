@@ -63,25 +63,43 @@ public class Waiter extends Staff {
       return order;
     }
 
-    public void serveOrder(Order order, int turn) 
-  {
-    checkAvailable();
+    public void serveOrder(Order order, int turn) {
+      if (!isAvailable()){
+        throw new IllegalStateException("This waiter has already acted this turn.");
+      }
 
-    if (order == null || !order.canServe(turn)) 
-    {
-      throw new IllegalStateException("Order cannot be served.");
-    }
+      if (order == null) 
+      {
+        throw new IllegalStateException("Order cannot be served. Cannot be null.");
+      }
 
-    Customer customer = order.getCustomer();
+      if (turn < 1){
+        throw new IllegalArgumentException("Turn number must be at least 1.");
+      }
 
-    if (customer.getState() != CustomerStatus.WAITING_FOR_FOOD)
-    {
-      throw new IllegalStateException("Customer is not waiting for food.");
-    }
-    order.markServed(turn);
-    customer.receiveOrder(order, turn);
-    completeTask();
+      if(!order.canServe(turn)){
+        throw new IllegalArgumentException("Order must have been ready before this turn.");
+      }
+
+      Customer customer = order.getCustomer();
+
+      if (customer == null){
+        throw new IllegalStateException("Order must belong to a customer, cant be null.");
+      }
+
+      if (!customer.canReceiveOrder(order)){
+        throw new IllegalStateException("Customer must be seated and waiting for this order.");
+      }
+      order.markServed(turn);
+      completeTask();
   }
+
+
+
+
+
+
+
 
     private void checkAvailable() 
   {
