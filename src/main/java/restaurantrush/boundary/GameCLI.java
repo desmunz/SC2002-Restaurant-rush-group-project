@@ -92,4 +92,18 @@ public class GameCLI {
                 "Order %d | Customer %d | %s | %s | Preparation: %d/%d%n", order.getOrderId(), order.getCustomer().getCustomerId(), order.getItem().getName(), order.getStatus(), order.getPreparationProgress(), order.getItem().getPreparationUnits());
         }
     }
+
+    private int readPositiveId(String prompt) throws EOFException {
+        while (true) {
+            int id = inputHandler.readInt(prompt);
+            if (id > 0) {
+                return id;
+            }
+            displayMessage("Please enter an ID greater than zero.");
+        }
+    }
+
+    public void displayMessage(String message) {
+        System.out.println(message);
+    }
 }
