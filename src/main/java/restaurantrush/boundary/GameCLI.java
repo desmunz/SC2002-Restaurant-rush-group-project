@@ -111,5 +111,20 @@ public class GameCLI {
     public void displayResult(GameResult result) {
         System.out.println("Game over! Result: " + result);
     }
-    
+
+    public void displayTurnSummary() {
+        System.out.printf("%n=== End of Turn %d ===%n", controller.getTurnsUsed());
+        System.out.println("Customers served: " + controller.getServedCustomerCount());
+        System.out.println("Unhappy departures: " + controller.getUnhappyDepartureCount());
+        System.out.println("Customers paid: " + controller.getPaidCustomerCount());
+        System.out.printf(Locale.US, "Revenue: $%.2f%n", controller.getRevenueCents() / 100.0);
+        if (controller.getPaidCustomerCount() == 0) {
+            System.out.println("Average paid satisfaction: N/A");
+        } else {
+            System.out.printf(Locale.US, "Average paid satisfaction: %.1f%n",
+                controller.getAveragePaidSatisfaction());
+        }
+        System.out.printf("Turns used: %d of 18%n", controller.getTurnsUsed());
+    }
+
 }
