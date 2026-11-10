@@ -1,4 +1,4 @@
-package main.java.restaurantrush.model;
+package restaurantrush.model;
 
 import restaurantrush.model.customer.Customer;
 

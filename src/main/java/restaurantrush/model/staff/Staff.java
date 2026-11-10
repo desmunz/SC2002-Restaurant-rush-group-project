@@ -1,4 +1,4 @@
-package main.java.restaurantrush.model.staff;
+package restaurantrush.model.staff;
 
 public abstract class Staff {
 
@@ -22,7 +22,7 @@ public abstract class Staff {
         taskCompleted = true;
         }
 
-    public void resetForNewturn(){
+    public void resetForNewTurn(){
         taskCompleted = false;
     }
 }
