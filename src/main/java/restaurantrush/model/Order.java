@@ -107,7 +107,7 @@ public class Order {
 
     public void markServed(int currentTurn){
         validateTurn(currentTurn);
-        
+
         if (!canServe(currentTurn)) {
             throw new IllegalStateException("Order is not ready to be served.");
         }
@@ -131,15 +131,18 @@ public class Order {
     }
 
     public void cancel(){
-        if (status == OrderStatus.PAID || status == OrderStatus.CANCELLED){
+        if (status == OrderStatus.PAID){
             throw new IllegalStateException("Order cannot be cancelled.");
+        }
+        if (status == OrderStatus.CANCELLED){
+            return;
         }
         status = OrderStatus.CANCELLED;
     }
 
     private void validateTurn(int currentTurn){
         if (currentTurn < 1) {
-            throw new IllegalArgumentException("Turn must be positive.");
+            throw new IllegalArgumentException("Turn must at least be 1.");
         }
     }
 
