@@ -40,9 +40,7 @@ public class Table {
         }
 
         if(!customer.isWaitingForTable()){
-            throw new IllegalStateException(
-                "Customer is not waiting for a table."
-            )
+            throw new IllegalStateException("Customer is not waiting for a table.");
         }
         
         customer.seatAt(this);
