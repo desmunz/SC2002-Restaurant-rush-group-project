@@ -106,6 +106,8 @@ public class Order {
     }
 
     public void markServed(int currentTurn){
+        validateTurn(currentTurn);
+        
         if (!canServe(currentTurn)) {
             throw new IllegalStateException("Order is not ready to be served.");
         }
