@@ -83,6 +83,12 @@ public class Order {
         if (status != OrderStatus.PENDING) {
             throw new IllegalStateException("Only pending orders can be prepared.");
         }
+        
+        if (currentTurn < orderTurn) {
+            throw new IllegalArgumentException(
+                "Preparation cannot occur before the order is placed."
+            );
+        }
 
         preparationProgress++;
         
