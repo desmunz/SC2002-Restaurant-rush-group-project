@@ -93,6 +93,7 @@ public class Order {
         preparationProgress++;
         
         if (preparationProgress >= item.getPreparationUnits()) {
+            preperationProgress = item.getPreparationUnits();
             status = OrderStatus.READY;
             readyTurn = currentTurn;
         }
