@@ -113,7 +113,7 @@ public class Order {
             throw new IllegalStateException("Only served orders can be paid.");
         }
 
-        if (currentTurn <= servedTurn + 2) {
+        if (currentTurn < servedTurn + 2) {
             throw new IllegalStateException("Payment is allowed no earlier than two turns after serving");
         }
 
