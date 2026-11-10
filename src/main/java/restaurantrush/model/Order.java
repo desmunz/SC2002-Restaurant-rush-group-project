@@ -99,8 +99,10 @@ public class Order {
     }
     
     public boolean canServe(int currentTurn){
-        validateTurn(currentTurn);
-        return status == OrderStatus.READY && readyTurn < currentTurn;
+        if (currentTurn < 1){
+            return false;
+        }
+        return status == OrderStatus.READY && readyTurn < currentTurn && readyTurn >= 1;
     }
 
     public void markServed(int currentTurn){
