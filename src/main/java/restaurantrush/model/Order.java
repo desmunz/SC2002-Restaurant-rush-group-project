@@ -77,34 +77,39 @@ public class Order {
         return servedTurn;
     }
 
-    public void advancePreparation(int currentTurn) 
-    {
+    public void advancePreparation(int currentTurn){
         validateTurn(currentTurn);
         
-        if (status != OrderStatus.PENDING) 
-        {
+        if (status != OrderStatus.PENDING) {
             throw new IllegalStateException("Only pending orders can be prepared.");
+        }
+        
+        if (currentTurn < orderTurn) {
+            throw new IllegalArgumentException(
+                "Preparation cannot occur before the order is placed."
+            );
         }
 
         preparationProgress++;
         
-        if (preparationProgress >= item.getPreparationUnits()) 
-        {
+        if (preparationProgress >= item.getPreparationUnits()) {
+            preperationProgress = item.getPreparationUnits();
             status = OrderStatus.READY;
             readyTurn = currentTurn;
         }
     }
     
-    public boolean canServe(int currentTurn) 
-    {
-        validateTurn(currentTurn);
-        return status == OrderStatus.READY && readyTurn < currentTurn;
+    public boolean canServe(int currentTurn){
+        if (currentTurn < 1){
+            return false;
+        }
+        return status == OrderStatus.READY && readyTurn < currentTurn && readyTurn >= 1;
     }
 
-    public void markServed(int currentTurn) 
-    {
-        if (!canServe(currentTurn)) 
-        {
+    public void markServed(int currentTurn){
+        validateTurn(currentTurn);
+
+        if (!canServe(currentTurn)) {
             throw new IllegalStateException("Order is not ready to be served.");
         }
         status = OrderStatus.SERVED;
@@ -115,33 +120,30 @@ public class Order {
     {
         validateTurn(currentTurn);
 
-        if (status != OrderStatus.SERVED) 
-        {
+        if (status != OrderStatus.SERVED) {
             throw new IllegalStateException("Only served orders can be paid.");
         }
 
-        if (currentTurn <= servedTurn) 
-        {
-            throw new IllegalStateException("Cannot pay on the serving turn.");
+        if (currentTurn < servedTurn + 2) {
+            throw new IllegalStateException("Payment is allowed no earlier than two turns after serving");
         }
 
         status = OrderStatus.PAID;
     }
 
-    public void cancel() 
-    {
-        if (status == OrderStatus.PAID || status == OrderStatus.CANCELLED) 
-        {
+    public void cancel(){
+        if (status == OrderStatus.PAID){
             throw new IllegalStateException("Order cannot be cancelled.");
+        }
+        if (status == OrderStatus.CANCELLED){
+            return;
         }
         status = OrderStatus.CANCELLED;
     }
 
-    private void validateTurn(int currentTurn) 
-    {
-        if (currentTurn < 1) 
-        {
-            throw new IllegalArgumentException("Turn must be positive.");
+    private void validateTurn(int currentTurn){
+        if (currentTurn < 1) {
+            throw new IllegalArgumentException("Turn must at least be 1.");
         }
     }
 

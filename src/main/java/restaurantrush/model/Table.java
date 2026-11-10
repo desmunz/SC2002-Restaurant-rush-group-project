@@ -1,6 +1,7 @@
 package restaurantrush.model;
 
 import restaurantrush.model.customer.Customer;
+import restaurantrush.model.enums.CustomerStatus;
 
 public class Table {
     private final int tableId;
