@@ -20,7 +20,6 @@ public class Waiter extends Staff {
         }
 
         table.seatCustomer(customer);
-        customer.seatAt(table);
         completeTask();
     }
 
