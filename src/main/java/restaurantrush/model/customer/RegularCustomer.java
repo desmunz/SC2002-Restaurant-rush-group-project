@@ -21,6 +21,13 @@ public class RegularCustomer extends Customer{
         return 0.0;
     }
 
+    
+    @Override
+    public String getCustomerType() {
+        return "Regular";
+    }
+
+
     public MenuItem chooseMenuItem(Menu menu){
         List<MenuItem> available = getAvailableMenuItems(menu);
         return available.get(random.nextInt(available.size()));

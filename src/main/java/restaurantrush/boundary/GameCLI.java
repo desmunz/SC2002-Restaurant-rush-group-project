@@ -1,4 +1,5 @@
 //aidan this is for you
+// ??????
 
 package restaurantrush.boundary;
 
@@ -71,7 +72,7 @@ public class GameCLI {
         }
 
         for (Customer customer : waiting) {
-            System.out.printf("Customer %d | Satisfaction: %d%n", customer.getCustomerId(), customer.getSatisfaction());
+            System.out.printf("Customer %d (%s) | Satisfaction: %d | Waiting loss: -%d%n",customer.getCustomerId(),customer.getCustomerType(),customer.getSatisfaction(),customer.getWaitingLoss());
         }
 
         System.out.println("\nTables:");
@@ -81,7 +82,7 @@ public class GameCLI {
                 System.out.printf("Table %d | Available%n", table.getTableId());
             } else {
                 System.out.printf(
-                    "Table %d | Customer %d | %s | Satisfaction: %d%n", table.getTableId(), customer.getCustomerId(), customer.getState(), customer.getSatisfaction());
+                    "Table %d | Customer %d (%s) | %s | Satisfaction: %d%n",table.getTableId(),customer.getCustomerId(),customer.getCustomerType(),customer.getState(),customer.getSatisfaction());
             }
         }
 
