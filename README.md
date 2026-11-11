@@ -67,12 +67,4 @@ Implements regular customers, the waiting queue, tables, menu, orders, staff act
 
 ## Stage-by-Stage Changes
 
-### Stage 1 → Stage 2
-
-| File | Change | Reason |
-|---|---|---|
-| `VIPCustomer.java` | Added | Introduces VIP-specific behaviour |
-| `CriticCustomer.java` | Added | Introduces Critic-specific behaviour |
-| `Main.java` | Modified | Updates the scheduled customer arrivals |
-| `GameCLI.java` | Modified, if applicable | Displays different customer types |
-| `Customer.java` | Modified, if applicable | Supports customer type identification |
+for later stages read me
