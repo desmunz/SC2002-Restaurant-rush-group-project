@@ -6,10 +6,6 @@ import java.util.Random;
 import restaurantrush.model.menu.Menu;
 import restaurantrush.model.menu.MenuItem;
 
-/**
- * VIP customer with lower waiting satisfaction loss
- * and a 10% discount.
- */
 public class VIPCustomer extends Customer {
 
     private final Random random = new Random(67890);
