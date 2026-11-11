@@ -7,8 +7,6 @@ import restaurantrush.control.GameController;
 import restaurantrush.control.GameState;
 import restaurantrush.model.Table;
 import restaurantrush.model.customer.RegularCustomer;
-import restaurantrush.model.customer.VIPCustomer;
-import restaurantrush.model.customer.CriticCustomer;
 import restaurantrush.model.menu.Menu;
 import restaurantrush.model.pricing.StandardPricingPolicy;
 import restaurantrush.model.staff.Cashier;
@@ -26,31 +24,11 @@ public class Main {
         GameState gameState = new GameState();
         gameState.configureRestaurant(tables, waiter, chef, cashier);
 
+        int[] arrivalTurns = {1, 4, 7, 10, 13, 16};
 
-        gameState.scheduleCustomerArrival(
-            1, new RegularCustomer(1)
-        );
-        
-        gameState.scheduleCustomerArrival(
-            4, new RegularCustomer(2)
-        );
-
-        gameState.scheduleCustomerArrival(
-            7, new VIPCustomer(3)
-        );
-
-        gameState.scheduleCustomerArrival(
-            10, new CriticCustomer(4)
-        );
-
-        gameState.scheduleCustomerArrival(
-            13, new RegularCustomer(5)
-        );
-
-        gameState.scheduleCustomerArrival(
-            16, new RegularCustomer(6)
-        );
-
+        for (int i = 0; i < arrivalTurns.length; i++) {
+            gameState.scheduleCustomerArrival(arrivalTurns[i], new RegularCustomer(i + 1));
+        }
 
         Menu menu = new Menu();
         StandardPricingPolicy pricingPolicy = new StandardPricingPolicy();
