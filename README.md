@@ -114,9 +114,29 @@ Implements regular customers, the waiting queue, tables, menu, orders, staff act
 
 Adds VIP and Critic customers alongside regular customers, introducing polymorphic satisfaction decay rates, VIP discounts and distinct Critic order or service behaviour within the existing turn flow.
 
-## Changes from Stage 1
+## Changes from Stage 1 to Stage 2
 
-- Enabled VIPCustomer and CriticCustomer, keeping selection, waiting-loss and discount behaviour in customer subclasses.
-- Added getCustomerType() to Customer and its subclasses for display labels.
-- Updated Main to register the mixed arrival schedule, and GameCLI to show customer types and correctly format order details.
-- Reused the existing staff, table, pricing and turn-flow implementations. The Stage 2 runs exercised the shared preparation, serving and payment flow with the new customer types.
+Stage 2 introduces two new customer types using inheritance and polymorphism, while preserving the existing restaurant management workflow.
+
+### Code Changes
+
+| File | Change | Description |
+|---|---|---|
+| `VIPCustomer.java` | Added | Implements VIP-specific satisfaction loss, discount and menu selection |
+| `CriticCustomer.java` | Added | Implements Critic-specific satisfaction loss and menu preference |
+| `Customer.java` | Modified | Introduces customer type identification through `getCustomerType()` |
+| `RegularCustomer.java` | Modified | Implements customer type identification |
+| `Main.java` | Modified | Updates customer arrivals to include Regular, VIP and Critic customers |
+| `GameCLI.java` | Modified | Displays customer types and improves order information |
+
+### Design Considerations
+
+The existing `Customer` class provides a common abstraction for all customer types. Each subclass overrides methods to define its own satisfaction loss, discount and menu-selection behaviour.
+
+This demonstrates inheritance and polymorphism, allowing the game to support new customer types without creating separate service workflows.
+
+The existing `GameController`, `Waiter`, `Chef`, `Cashier` and pricing components continue to handle customer interactions through shared interfaces.
+
+### GitHub Comparison
+
+[View changes from Stage 1 to Stage 2](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/compare/stage-1...stage-2)
