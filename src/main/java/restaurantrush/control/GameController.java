@@ -231,19 +231,36 @@ public class GameController {
 
         Customer customer = findActiveCustomer(parsePositiveId(parts[2]));
 
+        if (customer == null) {
+            return reject("That customer is not an active member of this restaurant.");
+        }
+
         if (!gameState.isInWaitingQueue(customer)
                 || !customer.isWaitingForTable()) {
             return reject("Select a customer who is waiting for a table.");
         }
 
         Table table = gameState.getFreeTable();
-        
+
+        if (table == null) {
+            return reject("There is no free table.");
+        }
+
         if (!gameState.containsTable(table)) {
             return reject("The selected table does not belong to this restaurant.");
         }
-        gameState.getHost().seatCustomer(customer, table);
 
+        try {
+            gameState.getHost().seatCustomer(customer, table);
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            return reject(ex.getMessage() == null
+                    ? "Host could not seat that customer."
+                    : ex.getMessage());
+        }
         validateSuccessfulSeating(customer, table);
+
+        if (!gameState.removeFromWaitingQueue(customer)) {
+            throw new IllegalStateException("Customer was seated but was not removable from the waiting queue.");}
 
         return true;
     }
