@@ -20,4 +20,10 @@ public class HappyHourPricingPolicy {
         activatedBefore = true;
         remainingTurns = 2;
     }
+
+    public double getPolicyDiscountRate() {
+        return isActive() ? 0.20 : 0.0;
+    }
+
+    
 }
