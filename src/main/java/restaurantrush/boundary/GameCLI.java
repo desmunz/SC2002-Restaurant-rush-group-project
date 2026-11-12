@@ -160,7 +160,26 @@ public class GameCLI {
                 controller.getTables().size());
 
 
-                
+        if ("HOST".equals(controller.getCurrentPhase())) {
+            System.out.println("\nCustomers eligible for Host seating:");
+
+            List<Customer> eligible = controller.getHostEligibleCustomers();
+
+            if (eligible.isEmpty()) {
+                System.out.println("None");
+            }
+
+            for (Customer customer : eligible) {
+                System.out.printf(
+                        "Customer %d | Type: %s | Satisfaction: %d%n",
+                        customer.getCustomerId(),
+                        customer.getCustomerType(),
+                        customer.getSatisfaction());
+            }
+        }
+
+
+
     }
 
     public String getManagerChoice() throws EOFException {
