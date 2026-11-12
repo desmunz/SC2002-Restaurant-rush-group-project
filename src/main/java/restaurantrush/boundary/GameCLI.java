@@ -26,7 +26,18 @@ public class GameCLI {
         controller.startGame();
 
         while (!controller.isGameOver()){
-            controller.beginTurn();
+
+             boolean activateHappyHour;
+
+            try {
+                activateHappyHour = getHappyHourActivationChoice();
+            } catch (EOFException ex) {
+                displayMessage("\nInput ended. Game stopped before completion.");
+                return;
+            }
+
+            controller.beginTurn(activateHappyHour);
+            
 
             while (!controller.isTurnComplete()){
                 displayState();
