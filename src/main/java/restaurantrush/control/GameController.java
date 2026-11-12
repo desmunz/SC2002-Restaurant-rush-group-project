@@ -106,7 +106,10 @@ public class GameController {
 
         String phase = getCurrentPhase();
         boolean successful;
-        if ("WAITER".equals(phase)) {
+
+        if ("HOST".equals(phase)) {
+            successful = processHostChoice(parts);
+        } else if ("WAITER".equals(phase)) {
             successful = processWaiterChoice(parts);
         } else {
             successful = processChefChoice(parts);
@@ -206,11 +209,22 @@ public class GameController {
     }
 
     private int getPhaseCount() {
-        return 2; //stage 3 should be 3
+        return 3;
     }
 
     public String getCurrentPhase() {
-        return managerChoicePhase == 0 ? "WAITER" : "CHEF";
+        if (managerChoicePhase == 0) {
+            return "HOST";
+        }
+        if (managerChoicePhase == 1) {
+            return "WAITER";
+        }
+        return "CHEF";
+    }
+
+    private boolean processHostChoice(String[] parts) {
+        // placeholder, add logic later
+        return true;
     }
 
     private boolean processWaiterChoice(String[] parts) {
