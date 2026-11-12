@@ -174,3 +174,20 @@ The project separates responsibilities into three main components:
 - **Model:** Represents customers, staff, orders, tables, menu items and pricing policies.
 
 This structure supports modularity, code reuse and incremental development across the three project stages.
+
+## Testing and Verification
+
+The project includes reproducible test inputs for both victory and defeat scenarios.
+
+Detailed test observations are documented in [Test Notes](documents/tests/test-notes.md).
+
+### Documented Test Results Summary
+
+| Scenario | Result | Served Customers | Revenue | Average Paid Satisfaction |
+|---|---|---:|---:|---:|
+| Victory | VICTORY | 5 | $76.50 | 79.6 |
+| Defeat | DEFEAT | 0 | $0.00 | N/A |
+
+Both documented scenarios complete all 18 turns.
+
+The tests demonstrate the game outcome conditions and exercise the restaurant's customer service workflow. Additional Stage 2 testing covers VIP discounts, different waiting penalties and Critic menu selection.
