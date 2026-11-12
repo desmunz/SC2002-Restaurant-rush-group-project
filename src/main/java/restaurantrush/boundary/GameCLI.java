@@ -1,4 +1,3 @@
-//aidan this is for you
 
 package restaurantrush.boundary;
 
