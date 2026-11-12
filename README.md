@@ -69,9 +69,9 @@ At the end of turn 18, the player wins if all three conditions are satisfied:
 | Victory | VICTORY | 5 | 0 | 5 | $76.50 | 79.6 | 18 |
 | Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
 
-To reproduce the defeat, start a fresh Java process and pass every turn.
-
 To reproduce the victory, start a fresh Java process and follow the schedule below. Numbers in the action descriptions are customer IDs for seating/ordering and order IDs for serving/preparation.
+
+To reproduce the defeat, start a fresh Java process and pass every turn.
 
 | Turn | Waiter action | Chef action |
 | --- | --- | --- |
