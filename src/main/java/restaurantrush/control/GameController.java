@@ -6,10 +6,11 @@ import restaurantrush.model.Table;
 import restaurantrush.model.customer.Customer;
 import restaurantrush.model.menu.Menu;
 import restaurantrush.model.pricing.PricingPolicy;
+// import restaurantrush.model.pricing.HappyHourPricingPolicy;
 import restaurantrush.model.staff.Cashier;
 import restaurantrush.model.staff.Chef;
 import restaurantrush.model.staff.Waiter;
-//later add the host and happy hour classes here yea
+import restaurantrush.model.staff.Host;
 
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
@@ -27,7 +28,7 @@ public class GameController {
     private final GameState gameState;
     private final Menu menu;
     private final PricingPolicy pricingPolicy;
-    //happy hour add later on
+   //happy hour add later on
 
     private boolean gameStarted;
     private boolean turnStarted;
@@ -57,6 +58,9 @@ public class GameController {
         }
         if (gameState.getTables().size() != 2) {
             throw new IllegalStateException("The restaurant must start with exactly two tables.");
+        }
+        if (gameState.getHost() == null) {
+            throw new IllegalStateException("Stage 3 requires a Host.");
         }
         gameStarted = true;
     }
@@ -102,7 +106,10 @@ public class GameController {
 
         String phase = getCurrentPhase();
         boolean successful;
-        if ("WAITER".equals(phase)) {
+
+        if ("HOST".equals(phase)) {
+            successful = processHostChoice(parts);
+        } else if ("WAITER".equals(phase)) {
             successful = processWaiterChoice(parts);
         } else {
             successful = processChefChoice(parts);
@@ -202,11 +209,60 @@ public class GameController {
     }
 
     private int getPhaseCount() {
-        return 2; //stage 3 should be 3
+        return 3;
     }
 
     public String getCurrentPhase() {
-        return managerChoicePhase == 0 ? "WAITER" : "CHEF";
+        if (managerChoicePhase == 0) {
+            return "HOST";
+        }
+        if (managerChoicePhase == 1) {
+            return "WAITER";
+        }
+        return "CHEF";
+    }
+
+    private boolean processHostChoice(String[] parts) {
+        if (parts.length != 3
+                || !parts[0].equalsIgnoreCase("HOST")
+                || !parts[1].equalsIgnoreCase("SEAT")) {
+            return reject("Use HOST:SEAT:<customerId> or PHASE:PASS.");
+        }
+
+        Customer customer = findActiveCustomer(parsePositiveId(parts[2]));
+
+        if (customer == null) {
+            return reject("That customer is not an active member of this restaurant.");
+        }
+
+        if (!gameState.isInWaitingQueue(customer)
+                || !customer.isWaitingForTable()) {
+            return reject("Select a customer who is waiting for a table.");
+        }
+
+        Table table = gameState.getFreeTable();
+
+        if (table == null) {
+            return reject("There is no free table.");
+        }
+
+        if (!gameState.containsTable(table)) {
+            return reject("The selected table does not belong to this restaurant.");
+        }
+
+        try {
+            gameState.getHost().seatCustomer(customer, table);
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            return reject(ex.getMessage() == null
+                    ? "Host could not seat that customer."
+                    : ex.getMessage());
+        }
+        validateSuccessfulSeating(customer, table);
+
+        if (!gameState.removeFromWaitingQueue(customer)) {
+            throw new IllegalStateException("Customer was seated but was not removable from the waiting queue.");}
+
+        return true;
     }
 
     private boolean processWaiterChoice(String[] parts) {

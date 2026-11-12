@@ -7,6 +7,7 @@ import restaurantrush.model.customer.Customer;
 import restaurantrush.model.staff.Cashier;
 import restaurantrush.model.staff.Chef;
 import restaurantrush.model.staff.Waiter;
+import restaurantrush.model.staff.Host;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class GameState {
     private Waiter waiter;
     private Chef chef;
     private Cashier cashier;
-    //intiate host later on in stage 3
+    private Host host;
 
     public GameState() {
         // placeholder first
@@ -48,8 +49,8 @@ public class GameState {
             List<Table> initialTables,
             Waiter waiter,
             Chef chef,
-            Cashier cashier
-            //add host here later on
+            Cashier cashier,
+            Host host
             ) {
         if (configured) {
             throw new IllegalStateException("Restaurant resources have already been configured.");
@@ -72,15 +73,15 @@ public class GameState {
             }
             validatedTables.add(table);
         }
-        if (waiter == null || chef == null || cashier == null) {
-            throw new IllegalArgumentException("Waiter, Chef and Cashier are required.");
+        if (waiter == null || chef == null || cashier == null || host == null) {
+            throw new IllegalArgumentException("Waiter, Chef, Cashier and Host are required.");
         }
 
         tables.addAll(validatedTables);
         this.waiter = waiter;
         this.chef = chef;
         this.cashier = cashier;
-        // add host later here like this.host = host;
+        this.host = host;
         configured = true;
     }
 
@@ -301,7 +302,9 @@ public class GameState {
         return cashier;
     }
 
-    // insert host later on in stage 3 here pls
+    public Host getHost() {
+        return host;
+    }
 
     private static boolean containsIdentity(List<Customer> values, Customer target) {
         for (Customer value : values) {
