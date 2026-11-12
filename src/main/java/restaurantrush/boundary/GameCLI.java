@@ -13,6 +13,7 @@ import restaurantrush.model.Table;
 import restaurantrush.model.customer.Customer;
 
 public class GameCLI {
+
     private final GameController controller;
     private final InputHandler inputHandler;
 
@@ -71,7 +72,7 @@ public class GameCLI {
         }
 
         for (Customer customer : waiting) {
-            System.out.printf("Customer %d | Satisfaction: %d%n", customer.getCustomerId(), customer.getSatisfaction());
+            System.out.printf("Customer %d | Type: %s | Satisfaction: %d%n", customer.getCustomerId(), customer.getCustomerType(), customer.getSatisfaction());
         }
 
         System.out.println("\nTables:");
@@ -80,8 +81,7 @@ public class GameCLI {
             if (customer == null) {
                 System.out.printf("Table %d | Available%n", table.getTableId());
             } else {
-                System.out.printf(
-                    "Table %d | Customer %d | %s | Satisfaction: %d%n", table.getTableId(), customer.getCustomerId(), customer.getState(), customer.getSatisfaction());
+                System.out.printf("Table %d | Customer %d | Type: %s | Status: %s | Satisfaction: %d%n", table.getTableId(), customer.getCustomerId(), customer.getCustomerType(), customer.getState(), customer.getSatisfaction());
             }
         }
 
@@ -91,8 +91,7 @@ public class GameCLI {
             System.out.println("None");
         }
         for (Order order : orders) {
-            System.out.printf(
-                "Order %d | Customer %d | %s | %s | Preparation: %d/%d%n", order.getOrderId(), order.getCustomer().getCustomerId(), order.getItem().getName(), order.getStatus(), order.getPreparationProgress(), order.getItem().getPreparationUnits());
+            System.out.printf("Order %d | Customer %d | Type: %s | Item: %s | Status: %s | Preparation: %d/%d%n", order.getOrderId(), order.getCustomer().getCustomerId(), order.getCustomer().getCustomerType(), order.getItem().getName(), order.getStatus(), order.getPreparationProgress(), order.getItem().getPreparationUnits());
         }
     }
 
