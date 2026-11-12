@@ -113,15 +113,15 @@ Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 
 ## Stage 3 Class Diagram
 
-![Stage 2 Class Diagram](documents/diagrams/stage-3-class-diagram.png)
+![Stage 3 Class Diagram](documents/diagrams/stage-3-class-diagram.png)
 
-[View full-resolution Stage 2 diagram](documents/diagrams/stage-3-class-diagram.png)
+[View full-resolution Stage 3 diagram](documents/diagrams/stage-3-class-diagram.png)
 
 ## Stage 3 Sequence Diagram
 
-![Stage 2 Class Diagram](documents/diagrams/stage-3-sequence-diagram.png)
+![Stage 3 Class Diagram](documents/diagrams/stage-3-sequence-diagram.png)
 
-[View full-resolution Stage 2 diagram](documents/diagrams/stage-3-sequence-diagram.png)
+[View full-resolution Stage 3 diagram](documents/diagrams/stage-3-sequence-diagram.png)
 
 ## Development Stages
 
@@ -137,19 +137,20 @@ Adds VIP and Critic customers alongside regular customers, introducing polymorph
 
 Adds a Host, combo meals and a once-per-game Happy Hour, introducing an independent seating allowance, bundled multi-unit dishes, start-of-turn satisfaction recovery and stacked order discounts.
 
-### Changes from Stage 1 to Stage 2
+## Changes from Stage 1 to Stage 2
 
 Stage 2 introduces two new customer types using inheritance and polymorphism, while preserving the existing restaurant management workflow.
 
-Code Changes
+### Code Changes
+
 | File | Change | Description |
 |---|---|---|
-| `VIPCustomer.java` | Added | Implements VIP-specific satisfaction loss, discount and menu selection
-| `CriticCustomer.java` | Added | Implements Critic-specific satisfaction loss and menu preference
-| `Customer.java` | Modified | Introduces customer type identification through getCustomerType()
-| `RegularCustomer.java` | Modified | Implements customer type identification
-| `Main.java` | Modified | Updates customer arrivals to include Regular, VIP and Critic customers
-| `GameCLI.java` | Modified | Displays customer types and improves order information
+| `VIPCustomer.java` | Added | Implements VIP-specific satisfaction loss, discount and menu selection |
+| `CriticCustomer.java` | Added | Implements Critic-specific satisfaction loss and menu preference |
+| `Customer.java` | Modified | Introduces customer type identification through getCustomerType() |
+| `RegularCustomer.java` | Modified | Implements customer type identification |
+| `Main.java` | Modified | Updates customer arrivals to include Regular, VIP and Critic customers |
+| `GameCLI.java` | Modified | Displays customer types and improves order information |
 
 ## Changes from Stage 2 to Stage 3
 
@@ -170,15 +171,16 @@ Stage 3 introduces a Host, combo meals and a once-per-game Happy Hour, while pre
 
 ### Design Considerations
 
-The existing `Customer` class provides a common abstraction for all customer types. Each subclass overrides methods to define its own satisfaction loss, discount and menu-selection behaviour.
-
-This demonstrates inheritance and polymorphism, allowing the game to support new customer types without creating separate service workflows.
-
-The existing `GameController`, `Waiter`, `Chef`, `Cashier` and pricing components continue to handle customer interactions through shared interfaces.
+- **Customer Polymorphism (Stage 2):** `Customer` provides a common abstraction for all customer types, while `RegularCustomer`, `VIPCustomer` and `CriticCustomer` override satisfaction decay, discount rates and menu-selection behaviour. This allows `GameController`, `Waiter`, `Chef` and `Cashier` to process different customer behaviours through a single service workflow without conditional type checks.
+- **Menu Item Polymorphism (Stage 3):** `ComboMeal` extends `MenuItem` by composing two existing menu items, overriding `getPriceCents()` (10% bundle discount) and `getPreparationUnits()` (sum of component units). Because combos share the `MenuItem` interface, `Menu`, `Order` and `Chef` handle single dishes and bundled meals identically.
+- **Strategy Pattern for Pricing (Stage 3):** `HappyHourPricingPolicy` implements `PricingPolicy` alongside `StandardPricingPolicy`, encapsulating Happy Hour's two-turn duration and 20% stacked discount. `GameController` switches the active pricing policy dynamically while orders lock their calculated price at order creation.
+- **Staff Composition & Single Responsibility (Stage 3):** `Host` is composed into `GameState` with its own per-turn seating allowance, keeping staff role responsibilities separated while reusing the existing table-assignment and queue validation logic in `GameController`.
 
 ### GitHub Comparison
 
 [View changes from Stage 1 to Stage 2](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/compare/stage-1...stage-2)
+
+[View changes from Stage 2 to Stage 3](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/compare/stage-2...stage-3)
 
 ## Project Structure
 
@@ -222,10 +224,10 @@ Detailed test observations are documented in [Test Notes](documents/tests/test-n
 
 ### Documented Test Results Summary
 
-| Scenario | Result | Served Customers | Revenue | Average Paid Satisfaction |
-|---|---|---:|---:|---:|
-| Victory | VICTORY | 5 | $76.50 | 79.6 |
-| Defeat | DEFEAT | 0 | $0.00 | N/A |
+| Replay | Result | Served | Unhappy departures | Paid | Revenue | Average paid satisfaction | Turns |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Victory | VICTORY | 6 | 0 | 5 | $86.80 | 82.8 | 18 |
+| Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
 
 Both documented scenarios complete all 18 turns.
 
