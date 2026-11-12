@@ -9,6 +9,7 @@ The player manages a restaurant over 18 turns by assigning tasks to the Waiter a
 ## URLs
 
 - [Group repository](https://github.com/desmunz/SC2002-Restaurant-rush-group-project)
+- [Stage 1 snapshot](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/tree/stage-1)
 
 ## How to Run
 
@@ -91,5 +92,3 @@ Get-Content documents/tests/defeat-input.txt | java -cp build/classes restaurant
 ### Stage 1 — Basic Restaurant Simulation
 
 Implements regular customers, the waiting queue, tables, menu, orders, staff actions, satisfaction, abandonment, payment and victory/defeat conditions.
-
-**Git tag:** to be added
