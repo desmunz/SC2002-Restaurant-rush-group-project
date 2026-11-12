@@ -29,8 +29,17 @@ public class Main {
 
         int[] arrivalTurns = {1, 4, 7, 10, 13, 16};
 
+        Customer[] customers = {
+            new RegularCustomer(1),
+            new VIPCustomer(2),
+            new RegularCustomer(3),
+            new CriticCustomer(4),
+            new RegularCustomer(5),
+            new RegularCustomer(6)
+        };
+
         for (int i = 0; i < arrivalTurns.length; i++) {
-            gameState.scheduleCustomerArrival(arrivalTurns[i], new RegularCustomer(i + 1));
+            gameState.scheduleCustomerArrival(arrivalTurns[i], customers[i]);
         }
 
         Menu menu = new Menu();
