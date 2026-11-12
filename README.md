@@ -10,6 +10,7 @@ The player manages a restaurant over 18 turns by assigning tasks to the Waiter a
 
 - [Group repository](https://github.com/desmunz/SC2002-Restaurant-rush-group-project)
 - [Stage 1 snapshot](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/tree/stage-1)
+- [Stage 2 snapshot](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/tree/stage-2)
 
 ## How to Run
 
@@ -53,6 +54,14 @@ The game runs in the terminal. Follow the on-screen instructions to choose Waite
 | Burger | $15.00 | 1 |
 | Pasta | $18.00 | 2 |
 
+### Customers
+
+| Customer | Satisfaction lost per waiting turn | Discount | Selection rule |
+| --- | --- | --- | --- |
+| Regular | 8 | None | Seeded randomness, seed 12345; first choice is Burger |
+| VIP | 5 | 10% | Seeded randomness, seed 67890; first choice is Burger |
+| Critic | 12 | None | Most expensive item; first in menu order if prices tie. Currently Pasta |
+
 ### Victory Conditions
 
 At the end of turn 18, the player wins if all three conditions are satisfied:
@@ -63,32 +72,55 @@ At the end of turn 18, the player wins if all three conditions are satisfied:
 
 ## Reproducible Test Runs
 
-See [Test Notes](documents/tests/test-notes.md) for additional information.
+| Replay | Result | Served | Unhappy departures | Paid | Revenue | Average paid satisfaction | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Victory | VICTORY | 5 | 0 | 5 | $76.50 | 79.6 | 18 |
+| Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
 
-### Victory
+To reproduce the victory, start a fresh Java process and follow the schedule below. Numbers in the action descriptions are customer IDs for seating/ordering and order IDs for serving/preparation.
 
-Run the following in a powershell console to reproduce the victory ending:
+To reproduce the defeat, start a fresh Java process and pass every turn.
 
-```powershell
-Get-Content documents/tests/victory-input.txt | java -cp build/classes restaurantrush.Main
-```
+| Turn | Waiter action | Chef action |
+| --- | --- | --- |
+| 1 | Seat 1 | Pass |
+| 2 | Take order 1 | Prepare 1 |
+| 3 | Serve 1 | Pass |
+| 4 | Seat 2 | Pass |
+| 5 | Take order 2 | Prepare 2 |
+| 6 | Serve 2 | Pass |
+| 7 | Seat 3 | Pass |
+| 8 | Take order 3 | Prepare 3 |
+| 9 | Serve 3 | Pass |
+| 10 | Seat 4 | Pass |
+| 11 | Take order 4 | Prepare 4 |
+| 12 | Pass | Prepare 4 |
+| 13 | Serve 4 | Pass |
+| 14 | Seat 5 | Pass |
+| 15 | Take order 5 | Prepare 5 |
+| 16 | Serve 5 | Pass |
+| 17 | Seat 6 | Pass |
+| 18 | Take order 6 | Prepare 6 |
 
-### Failure
+## Stage 2 Diagrams
 
-Run the following in a powershell console to reproduce the defeat ending:
+![Stage 2 class diagram](documents/diagrams/stage-2-class-diagram.png)
 
-```powershell
-Get-Content documents/tests/defeat-input.txt | java -cp build/classes restaurantrush.Main
-```
-
-## Stage 1 Diagrams
-
-![Stage 1 class diagram](documents/diagrams/stage-1-class-diagram.png)
-
-[Full-resolution diagram](documents/diagrams/stage-1-class-diagram.png)
+[Full-resolution diagram](documents/diagrams/stage-2-class-diagram.png)
 
 ## Development Stages
 
 ### Stage 1 — Basic Restaurant Simulation
 
 Implements regular customers, the waiting queue, tables, menu, orders, staff actions, satisfaction, abandonment, payment and victory/defeat conditions.
+
+### Stage 2 — Customer Behaviour Extension
+
+Adds VIP and Critic customers alongside regular customers, introducing polymorphic satisfaction decay rates, VIP discounts and distinct Critic order or service behaviour within the existing turn flow.
+
+## Changes from Stage 1
+
+- Enabled VIPCustomer and CriticCustomer, keeping selection, waiting-loss and discount behaviour in customer subclasses.
+- Added getCustomerType() to Customer and its subclasses for display labels.
+- Updated Main to register the mixed arrival schedule, and GameCLI to show customer types and correctly format order details.
+- Reused the existing staff, table, pricing and turn-flow implementations. The Stage 2 runs exercised the shared preparation, serving and payment flow with the new customer types.
