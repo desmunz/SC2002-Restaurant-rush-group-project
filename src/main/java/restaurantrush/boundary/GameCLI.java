@@ -178,6 +178,24 @@ public class GameCLI {
             }
         }
 
+        if (controller.isHappyHourActive()) {
+            System.out.println("\nCustomers eligible for Happy Hour bonus:");
+
+            List<Customer> eligible = controller.getHappyHourEligibleCustomers();
+
+            if (eligible.isEmpty()) {
+                System.out.println("None");
+            }
+
+            for (Customer customer : eligible) {
+                System.out.printf(
+                        "Customer %d | Type: %s | Satisfaction: %d%n",
+                        customer.getCustomerId(),
+                        customer.getCustomerType(),
+                        customer.getSatisfaction());
+            }
+        }
+
 
 
     }
