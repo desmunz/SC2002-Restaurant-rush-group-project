@@ -27,7 +27,21 @@ public class ComboMeal extends MenuItem{
         }
     }
 
-    //need to write methods for calculate combo price 
+    private static int calculateComboPrice(MenuItem first, MenuItem second) {
+
+        validateComponents(first, second);
+
+        long combinedPrice = (long) first.getPriceCents() + second.getPriceCents();
+
+        long discountedPrice = Math.round(combinedPrice * 0.90);
+
+        if (discountedPrice > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Combo price is too large.");
+        }
+
+        return (int) discountedPrice;
+    }
+
     // need tpo write methods for calculate prep units
     
 }
