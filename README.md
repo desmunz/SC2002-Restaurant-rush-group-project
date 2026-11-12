@@ -90,11 +90,24 @@ Run the following in a powershell console to reproduce the defeat ending:
 Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 ```
 
-## Stage 2 Diagrams
+## UML Class Diagrams
 
-![Stage 2 class diagram](documents/diagrams/stage-2-class-diagram.png)
+### Stage 1 Class Diagram
 
-[Full-resolution diagram](documents/diagrams/stage-2-class-diagram.png)
+![Stage 1 Class Diagram](documents/diagrams/stage-1-class-diagram.png)
+
+[View full-resolution Stage 1 diagram](documents/diagrams/stage-1-class-diagram.png)
+
+### Stage 2 Class Diagram
+
+![Stage 2 Class Diagram](documents/diagrams/stage-2-class-diagram.png)
+
+[View full-resolution Stage 2 diagram](documents/diagrams/stage-2-class-diagram.png)
+
+### Stage 3 Class Diagram
+
+To be added once Stage 3 is implemented
+
 
 ## Development Stages
 
