@@ -133,6 +133,18 @@ public class GameCLI {
         for (Order order : orders) {
             System.out.printf("Order %d | Customer %d | Type: %s | Item: %s | Status: %s | Preparation: %d/%d%n", order.getOrderId(), order.getCustomer().getCustomerId(), order.getCustomer().getCustomerType(), order.getItem().getName(), order.getStatus(), order.getPreparationProgress(), order.getItem().getPreparationUnits());
         }
+
+        System.out.println();
+
+        if (controller.isHappyHourActive()) {
+            System.out.printf(
+                    "Happy Hour: ACTIVE | %d turn(s) remaining%n",
+                    controller.getHappyHourRemainingTurns());
+        } else if (controller.canActivateHappyHour()) {
+            System.out.println("Happy Hour: Available (not yet activated)");
+        } else {
+            System.out.println("Happy Hour: Expired");
+        }
     }
 
     public String getManagerChoice() throws EOFException {
