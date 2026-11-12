@@ -6,10 +6,11 @@ import restaurantrush.model.Table;
 import restaurantrush.model.customer.Customer;
 import restaurantrush.model.menu.Menu;
 import restaurantrush.model.pricing.PricingPolicy;
+// import restaurantrush.model.pricing.HappyHourPricingPolicy;
 import restaurantrush.model.staff.Cashier;
 import restaurantrush.model.staff.Chef;
 import restaurantrush.model.staff.Waiter;
-//later add the host and happy hour classes here yea
+import restaurantrush.model.staff.Host;
 
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
@@ -27,7 +28,7 @@ public class GameController {
     private final GameState gameState;
     private final Menu menu;
     private final PricingPolicy pricingPolicy;
-    //happy hour add later on
+   //happy hour add later on
 
     private boolean gameStarted;
     private boolean turnStarted;
@@ -57,6 +58,9 @@ public class GameController {
         }
         if (gameState.getTables().size() != 2) {
             throw new IllegalStateException("The restaurant must start with exactly two tables.");
+        }
+        if (gameState.getHost() == null) {
+            throw new IllegalStateException("Stage 3 requires a Host.");
         }
         gameStarted = true;
     }
