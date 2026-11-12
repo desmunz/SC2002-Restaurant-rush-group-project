@@ -6,7 +6,7 @@ import restaurantrush.model.Table;
 import restaurantrush.model.customer.Customer;
 import restaurantrush.model.menu.Menu;
 import restaurantrush.model.pricing.PricingPolicy;
-// import restaurantrush.model.pricing.HappyHourPricingPolicy;
+import restaurantrush.model.pricing.HappyHourPricingPolicy;
 import restaurantrush.model.staff.Cashier;
 import restaurantrush.model.staff.Chef;
 import restaurantrush.model.staff.Waiter;
@@ -28,11 +28,10 @@ public class GameController {
     private final GameState gameState;
     private final Menu menu;
     private final PricingPolicy pricingPolicy;
-   //happy hour add later on
+    private final HappyHourPricingPolicy happyHourPolicy = new HappyHourPricingPolicy();
 
     private boolean gameStarted;
     private boolean turnStarted;
-    //happy hour rejection add later on too
     private int managerChoicePhase;
     private String lastErrorMessage = "";
 
@@ -64,7 +63,12 @@ public class GameController {
         }
         gameStarted = true;
     }
+
     public void beginTurn() {
+        beginTurn(false);
+    }
+
+    public void beginTurn(boolean activateHappyHour) {
         requireStarted();
         if (isGameOver()) {
             throw new IllegalStateException("The game has ended.");
@@ -78,8 +82,13 @@ public class GameController {
             throw new IllegalStateException("Turn number must be between 1 and 18.");
         }
 
+        if (activateHappyHour) {
+            happyHourPolicy.activate();
+        }
+
         resetActiveStaffForTurn();
         processArrivals(currentTurn);
+        applyTurnStartEffects(currentTurn);
         managerChoicePhase = 0;
         turnStarted = true;
         lastErrorMessage = "";
@@ -136,6 +145,7 @@ public class GameController {
         int currentTurn = gameState.getCurrentTurn();
         processEatingAndPayment(currentTurn);
         processAbandonment();
+        happyHourPolicy.advanceTurn();
         gameState.incrementTurn();
         turnStarted = false;
     }
@@ -191,6 +201,41 @@ public class GameController {
     public boolean isGameOver() {
         return gameState.getCurrentTurn() > FINAL_TURN;
     }
+    public boolean canActivateHappyHour() {
+        return happyHourPolicy.canActivate();
+    }
+
+    public boolean isHappyHourActive() {
+        return happyHourPolicy.isActive();
+    }
+
+    public int getHappyHourRemainingTurns() {
+        return happyHourPolicy.getRemainingTurns();
+    }
+
+    public List<Customer> getHostEligibleCustomers() {
+        List<Customer> eligible = new ArrayList<>();
+
+        for (Customer customer : gameState.getWaitingCustomers()) {
+            if (customer.isWaitingForTable()) {
+                eligible.add(customer);
+            }
+        }
+
+        return eligible;
+    }
+    public List<Customer> getHappyHourEligibleCustomers() {
+        List<Customer> eligible = new ArrayList<>();
+
+        for (Customer customer : gameState.getCustomers()) {
+            if (gameState.isActiveCustomer(customer)
+                    && customer.isWaitingForService()) {
+                eligible.add(customer);
+            }
+        }
+
+        return eligible;
+    }
 
     public GameResult checkResult() {
         if (!isGameOver()) {
@@ -203,6 +248,7 @@ public class GameController {
     }
 
     private void resetActiveStaffForTurn() {
+        gameState.getHost().resetForNewTurn();
         gameState.getWaiter().resetForNewTurn();
         gameState.getChef().resetForNewTurn();
         gameState.getCashier().resetForNewTurn();
@@ -323,7 +369,7 @@ public class GameController {
             Order order;
             try {
                 order = gameState.getWaiter().takeOrder(
-                        customer, menu, pricingPolicy, currentTurn);
+                        customer, menu, getActivePricingPolicy(), currentTurn);
             } catch (IllegalArgumentException | IllegalStateException ex) {
                 return reject(ex.getMessage() == null ? "Waiter could not take that order." : ex.getMessage());
             }
@@ -418,6 +464,20 @@ public class GameController {
         for (Customer customer : gameState.takeScheduledArrivals(currentTurn)) {
             gameState.enqueueArrivedCustomer(customer);
         }
+    }
+
+    private void applyTurnStartEffects(int currentTurn) {
+        if (!isHappyHourActive()) {
+            return;
+        }
+
+        for (Customer customer : getHappyHourEligibleCustomers()) {
+            applyHappyHourBonus(customer);
+        }
+    }
+
+    private void applyHappyHourBonus(Customer customer) {
+        customer.applyHappyHourBuff();
     }
 
     private void processEatingAndPayment(int currentTurn) {
@@ -573,5 +633,8 @@ public class GameController {
         if (!gameStarted) {
             throw new IllegalStateException("Call startGame() before this operation.");
         }
+    }
+    private PricingPolicy getActivePricingPolicy() {
+        return happyHourPolicy.isActive() ? happyHourPolicy : pricingPolicy;
     }
 }
