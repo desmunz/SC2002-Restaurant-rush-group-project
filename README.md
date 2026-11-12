@@ -79,7 +79,7 @@ See [Test Notes](documents/tests/test-notes.md) for additional information.
 Run the following in a powershell console to reproduce the victory ending:
 
 ```powershell
-Get-Content documents/tests/victory-input.txt | java -cp build/classes restaurantrush.Main
+Get-Content documents/tests/victory-input.txt | java -cp out restaurantrush.Main
 ```
 
 ### Failure
@@ -87,14 +87,22 @@ Get-Content documents/tests/victory-input.txt | java -cp build/classes restauran
 Run the following in a powershell console to reproduce the defeat ending:
 
 ```powershell
-Get-Content documents/tests/defeat-input.txt | java -cp build/classes restaurantrush.Main
+Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 ```
 
-## Stage 2 Diagrams
+## UML Class Diagrams
 
-![Stage 2 class diagram](documents/diagrams/stage-2-class-diagram.png)
+### Stage 1 Class Diagram
 
-[Full-resolution diagram](documents/diagrams/stage-2-class-diagram.png)
+![Stage 1 Class Diagram](documents/diagrams/stage-1-class-diagram.png)
+
+[View full-resolution Stage 1 diagram](documents/diagrams/stage-1-class-diagram.png)
+
+### Stage 2 Class Diagram
+
+![Stage 2 Class Diagram](documents/diagrams/stage-2-class-diagram.png)
+
+[View full-resolution Stage 2 diagram](documents/diagrams/stage-2-class-diagram.png)
 
 ## Development Stages
 
@@ -106,9 +114,80 @@ Implements regular customers, the waiting queue, tables, menu, orders, staff act
 
 Adds VIP and Critic customers alongside regular customers, introducing polymorphic satisfaction decay rates, VIP discounts and distinct Critic order or service behaviour within the existing turn flow.
 
-## Changes from Stage 1
+## Changes from Stage 1 to Stage 2
 
-- Enabled VIPCustomer and CriticCustomer, keeping selection, waiting-loss and discount behaviour in customer subclasses.
-- Added getCustomerType() to Customer and its subclasses for display labels.
-- Updated Main to register the mixed arrival schedule, and GameCLI to show customer types and correctly format order details.
-- Reused the existing staff, table, pricing and turn-flow implementations. The Stage 2 runs exercised the shared preparation, serving and payment flow with the new customer types.
+Stage 2 introduces two new customer types using inheritance and polymorphism, while preserving the existing restaurant management workflow.
+
+### Code Changes
+
+| File | Change | Description |
+|---|---|---|
+| `VIPCustomer.java` | Added | Implements VIP-specific satisfaction loss, discount and menu selection |
+| `CriticCustomer.java` | Added | Implements Critic-specific satisfaction loss and menu preference |
+| `Customer.java` | Modified | Introduces customer type identification through `getCustomerType()` |
+| `RegularCustomer.java` | Modified | Implements customer type identification |
+| `Main.java` | Modified | Updates customer arrivals to include Regular, VIP and Critic customers |
+| `GameCLI.java` | Modified | Displays customer types and improves order information |
+
+### Design Considerations
+
+The existing `Customer` class provides a common abstraction for all customer types. Each subclass overrides methods to define its own satisfaction loss, discount and menu-selection behaviour.
+
+This demonstrates inheritance and polymorphism, allowing the game to support new customer types without creating separate service workflows.
+
+The existing `GameController`, `Waiter`, `Chef`, `Cashier` and pricing components continue to handle customer interactions through shared interfaces.
+
+### GitHub Comparison
+
+[View changes from Stage 1 to Stage 2](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/compare/stage-1...stage-2)
+
+## Project Structure
+
+```text
+src/main/java/restaurantrush/
+├── Main.java
+├── boundary/
+│   ├── GameCLI.java
+│   └── InputHandler.java
+├── control/
+│   ├── GameController.java
+│   ├── GameState.java
+│   └── GameResult.java
+└── model/
+    ├── Order.java
+    ├── Table.java
+    ├── customer/
+    │   ├── Customer.java
+    │   ├── RegularCustomer.java
+    │   ├── VIPCustomer.java
+    │   └── CriticCustomer.java
+    ├── enums/
+    ├── menu/
+    ├── pricing/
+    └── staff/
+```
+
+The project separates responsibilities into three main components:
+
+- **Boundary:** Handles user input and displays game information through the command-line interface.
+- **Control:** Manages game progression, turn-based actions and victory/defeat conditions.
+- **Model:** Represents customers, staff, orders, tables, menu items and pricing policies.
+
+This structure supports modularity, code reuse and incremental development across the three project stages.
+
+## Testing and Verification
+
+The project includes reproducible test inputs for both victory and defeat scenarios.
+
+Detailed test observations are documented in [Test Notes](documents/tests/test-notes.md).
+
+### Documented Test Results Summary
+
+| Scenario | Result | Served Customers | Revenue | Average Paid Satisfaction |
+|---|---|---:|---:|---:|
+| Victory | VICTORY | 5 | $76.50 | 79.6 |
+| Defeat | DEFEAT | 0 | $0.00 | N/A |
+
+Both documented scenarios complete all 18 turns.
+
+The tests demonstrate the game outcome conditions and exercise the restaurant's customer service workflow. Additional Stage 2 testing covers VIP discounts, different waiting penalties and Critic menu selection.
