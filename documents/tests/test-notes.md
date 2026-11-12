@@ -22,6 +22,15 @@ Final result: DEFEAT, zero served, two unhappy departures, zero paid, $0.00 reve
 
 [Replay input](documents/tests/defeat-input.txt)
 
+## Results Discussion
+
+| Replay | Result | Served | Unhappy departures | Paid | Revenue | Average paid satisfaction | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Victory | VICTORY | 6 | 0 | 5 | $75.00 | 84.0 | 18 |
+| Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
+
+The inputs depend on the documented food-selection rule and order IDs starting at 1 in a fresh process. The sixth customer is served but unpaid in the victory replay. Later arrivals have not all reached zero satisfaction in the defeat replay.
+
 ## Input and reporting checks
 
 - Both replays printed exactly 18 end-of-turn summaries, with final statistics before the result.
