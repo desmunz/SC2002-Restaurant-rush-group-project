@@ -12,6 +12,9 @@ import restaurantrush.model.pricing.StandardPricingPolicy;
 import restaurantrush.model.staff.Cashier;
 import restaurantrush.model.staff.Chef;
 import restaurantrush.model.staff.Waiter;
+import restaurantrush.model.customer.Customer;
+import restaurantrush.model.customer.VIPCustomer;
+import restaurantrush.model.customer.CriticCustomer;
 
 public class Main {
     public static void main(String[] args) {
