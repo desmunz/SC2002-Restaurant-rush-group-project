@@ -1,4 +1,4 @@
-# Stage 1 Test Notes
+# Stage 2 Test Notes
 
 In this document, we discuss the strategies involved in reaching both Victory and Defeat endings, and also the verification of these results.
 
@@ -53,4 +53,4 @@ The results given only cover the stated scenarios, not every possible action seq
 - Both replays printed exactly 18 end-of-turn summaries, with final statistics before the result.
 - Nonnumeric action input, out-of-range actions, nonpositive IDs and nonexistent customer IDs were rejected and the game continued.
 - EOF at the action prompt, ID prompt, Chef prompt and after invalid input exited with no stack trace and no victory/defeat declaration.
-- Reproduction for immediate EOF in PowerShell: `@() | java -cp build/classes restaurantrush.Main`. Expected message: `Input ended. Game stopped before completion.`
+- Reproduction for immediate EOF in PowerShell: `@() | java -cp out restaurantrush.Main`. Expected message: `Input ended. Game stopped before completion.`

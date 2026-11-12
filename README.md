@@ -79,7 +79,7 @@ See [Test Notes](documents/tests/test-notes.md) for additional information.
 Run the following in a powershell console to reproduce the victory ending:
 
 ```powershell
-Get-Content documents/tests/victory-input.txt | java -cp build/classes restaurantrush.Main
+Get-Content documents/tests/victory-input.txt | java -cp out restaurantrush.Main
 ```
 
 ### Failure
@@ -87,7 +87,7 @@ Get-Content documents/tests/victory-input.txt | java -cp build/classes restauran
 Run the following in a powershell console to reproduce the defeat ending:
 
 ```powershell
-Get-Content documents/tests/defeat-input.txt | java -cp build/classes restaurantrush.Main
+Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 ```
 
 ## Stage 2 Diagrams
@@ -112,3 +112,6 @@ Adds VIP and Critic customers alongside regular customers, introducing polymorph
 - Added getCustomerType() to Customer and its subclasses for display labels.
 - Updated Main to register the mixed arrival schedule, and GameCLI to show customer types and correctly format order details.
 - Reused the existing staff, table, pricing and turn-flow implementations. The Stage 2 runs exercised the shared preparation, serving and payment flow with the new customer types.
+
+## GitHub Comparison
+[Compare Stage 1 and Stage 2](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/compare/stage-1...stage-2)
