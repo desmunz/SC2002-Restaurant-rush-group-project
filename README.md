@@ -140,3 +140,37 @@ The existing `GameController`, `Waiter`, `Chef`, `Cashier` and pricing component
 ### GitHub Comparison
 
 [View changes from Stage 1 to Stage 2](https://github.com/desmunz/SC2002-Restaurant-rush-group-project/compare/stage-1...stage-2)
+
+## Project Structure
+
+```text
+src/main/java/restaurantrush/
+├── Main.java
+├── boundary/
+│   ├── GameCLI.java
+│   └── InputHandler.java
+├── control/
+│   ├── GameController.java
+│   ├── GameState.java
+│   └── GameResult.java
+└── model/
+    ├── Order.java
+    ├── Table.java
+    ├── customer/
+    │   ├── Customer.java
+    │   ├── RegularCustomer.java
+    │   ├── VIPCustomer.java
+    │   └── CriticCustomer.java
+    ├── enums/
+    ├── menu/
+    ├── pricing/
+    └── staff/
+```
+
+The project separates responsibilities into three main components:
+
+- **Boundary:** Handles user input and displays game information through the command-line interface.
+- **Control:** Manages game progression, turn-based actions and victory/defeat conditions.
+- **Model:** Represents customers, staff, orders, tables, menu items and pricing policies.
+
+This structure supports modularity, code reuse and incremental development across the three project stages.
