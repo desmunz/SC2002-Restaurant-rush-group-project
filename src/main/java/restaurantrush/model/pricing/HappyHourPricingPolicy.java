@@ -33,4 +33,10 @@ public class HappyHourPricingPolicy {
         return remainingTurns;
     }
 
+    public void advanceTurn() {
+        if (remainingTurns > 0) {
+            remainingTurns--;
+        }
+    }
+
 }
