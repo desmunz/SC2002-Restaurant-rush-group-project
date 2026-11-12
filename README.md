@@ -70,7 +70,7 @@ See [Test Notes](documents/tests/test-notes.md) for additional information.
 Run the following in a powershell console to reproduce the victory ending:
 
 ```powershell
-Get-Content documents/tests/victory-input.txt | java -cp build/classes restaurantrush.Main
+Get-Content documents/tests/victory-input.txt | java -cp out restaurantrush.Main
 ```
 
 ### Failure
