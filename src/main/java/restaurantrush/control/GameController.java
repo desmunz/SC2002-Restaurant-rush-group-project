@@ -203,6 +203,7 @@ public class GameController {
     }
 
     private void resetActiveStaffForTurn() {
+        gameState.getHost().resetForNewTurn();
         gameState.getWaiter().resetForNewTurn();
         gameState.getChef().resetForNewTurn();
         gameState.getCashier().resetForNewTurn();
