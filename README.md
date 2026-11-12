@@ -104,11 +104,6 @@ Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 
 [View full-resolution Stage 2 diagram](documents/diagrams/stage-2-class-diagram.png)
 
-### Stage 3 Class Diagram
-
-To be added once Stage 3 is implemented
-
-
 ## Development Stages
 
 ### Stage 1 — Basic Restaurant Simulation
