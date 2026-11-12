@@ -1,6 +1,6 @@
 package restaurantrush.model.pricing;
 
-public class HappyHourPricingPolicy {
+public class HappyHourPricingPolicy implements pricingPolicy{
     private boolean activatedBefore;
     private int remainingTurns;
 
