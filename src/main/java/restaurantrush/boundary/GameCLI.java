@@ -37,7 +37,7 @@ public class GameCLI {
             }
 
             controller.beginTurn(activateHappyHour);
-            
+
 
             while (!controller.isTurnComplete()){
                 displayState();
@@ -62,6 +62,35 @@ public class GameCLI {
 
         displayResult(controller.checkResult());
     }
+
+
+        private boolean getHappyHourActivationChoice() throws EOFException {
+                if (!controller.canActivateHappyHour()) {
+                    return false;
+                }
+
+                System.out.printf(
+                        "%nTurn %d: Happy Hour is available.%n",
+                        controller.getCurrentTurn());
+
+                System.out.println("1) Activate Happy Hour now (2 turns)");
+                System.out.println("2) Save it for a later turn");
+
+                while (true) {
+                    int choice = inputHandler.readInt("Choose an option: ");
+
+                    if (choice == 1) {
+                        return true;
+                    }
+                    if (choice == 2) {
+                        return false;
+                    }
+
+                    displayMessage("Please choose 1 or 2.");
+                }
+            }
+
+
 
     public void displayState() {
         System.out.printf("%n=== Restaurant Rush | Turn %d of 18 ===%n", controller.getCurrentTurn());
