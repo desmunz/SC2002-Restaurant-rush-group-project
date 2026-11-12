@@ -223,7 +223,28 @@ public class GameController {
     }
 
     private boolean processHostChoice(String[] parts) {
-        // placeholder, add logic later
+        if (parts.length != 3
+                || !parts[0].equalsIgnoreCase("HOST")
+                || !parts[1].equalsIgnoreCase("SEAT")) {
+            return reject("Use HOST:SEAT:<customerId> or PHASE:PASS.");
+        }
+
+        Customer customer = findActiveCustomer(parsePositiveId(parts[2]));
+
+        if (!gameState.isInWaitingQueue(customer)
+                || !customer.isWaitingForTable()) {
+            return reject("Select a customer who is waiting for a table.");
+        }
+
+        Table table = gameState.getFreeTable();
+        
+        if (!gameState.containsTable(table)) {
+            return reject("The selected table does not belong to this restaurant.");
+        }
+        gameState.getHost().seatCustomer(customer, table);
+
+        validateSuccessfulSeating(customer, table);
+
         return true;
     }
 
