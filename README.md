@@ -9,6 +9,7 @@ The player manages a restaurant over 18 turns by assigning tasks to the Waiter a
 ## URLs
 
 - [Group repository](https://github.com/aacceeOP/sc2005-scs3-group-5-group-assignment)
+- [Stage 1 snapshot](https://github.com/aacceeOP/sc2005-scs3-group-5-group-assignment/tree/stage-1)
 
 ## How to Run
 
