@@ -12,7 +12,7 @@ For customer n from 1 to 6, use this three-turn pattern:
 
 Final result: VICTORY, six customers served, zero unhappy departures, five paid customers, $75.00 revenue, average paid satisfaction 84.0, 18 turns used. Customer 6 is served but unpaid at the end. Paid customers remain included in the served count.
 
-[Replay input](documents/tests/victory-input.txt)
+[Replay input](victory-input.txt)
 
 ## Defeat Strategy
 
@@ -20,7 +20,7 @@ For all 18 turns, choose Waiter 4 and Chef 2.
 
 Final result: DEFEAT, zero served, two unhappy departures, zero paid, $0.00 revenue, average N/A and 18 turns used. Later arrivals have not all reached zero satisfaction by turn 18.
 
-[Replay input](documents/tests/defeat-input.txt)
+[Replay input](defeat-input.txt)
 
 ## Input and reporting checks
 
