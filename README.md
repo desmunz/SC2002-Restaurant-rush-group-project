@@ -54,6 +54,14 @@ The game runs in the terminal. Follow the on-screen instructions to choose Waite
 | Burger | $15.00 | 1 |
 | Pasta | $18.00 | 2 |
 
+### Customers
+
+| Customer | Satisfaction lost per waiting turn | Discount | Selection rule |
+| --- | --- | --- | --- |
+| Regular | 8 | None | Seeded randomness, seed 12345; first choice is Burger |
+| VIP | 5 | 10% | Seeded randomness, seed 67890; first choice is Burger |
+| Critic | 12 | None | Most expensive item; first in menu order if prices tie. Currently Pasta |
+
 ### Victory Conditions
 
 At the end of turn 18, the player wins if all three conditions are satisfied:
