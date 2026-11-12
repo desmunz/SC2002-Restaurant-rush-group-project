@@ -145,6 +145,22 @@ public class GameCLI {
         } else {
             System.out.println("Happy Hour: Expired");
         }
+
+        int availableTableCount = 0;
+
+        for (Table table : controller.getTables()) {
+            if (table.isAvailable()) {
+                availableTableCount++;
+            }
+        }
+
+        System.out.printf(
+                "Available tables: %d of %d%n",
+                availableTableCount,
+                controller.getTables().size());
+
+
+                
     }
 
     public String getManagerChoice() throws EOFException {
