@@ -25,5 +25,12 @@ public class HappyHourPricingPolicy {
         return isActive() ? 0.20 : 0.0;
     }
 
-    
+    public boolean isActive() {
+        return remainingTurns > 0;
+    }
+
+    public int getRemainingTurns() {
+        return remainingTurns;
+    }
+
 }
