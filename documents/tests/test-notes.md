@@ -50,4 +50,4 @@ On every turn, choose **2** to skip Happy Hour, **2** for the Host to pass, **4*
 - Both replays printed exactly 18 end-of-turn summaries, with final statistics before the result.
 - Nonnumeric action input, out-of-range actions, nonpositive IDs and nonexistent customer IDs were rejected and the game continued.
 - EOF at the action prompt, ID prompt, Chef prompt and after invalid input exited with no stack trace and no victory/defeat declaration.
-- Reproduction for immediate EOF in PowerShell: `@() | java -cp build/classes restaurantrush.Main`. Expected message: `Input ended. Game stopped before completion.`
+- Reproduction for immediate EOF in PowerShell: `@() | java -cp out restaurantrush.Main`. Expected message: `Input ended. Game stopped before completion.`

@@ -111,13 +111,13 @@ Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 
 [View full-resolution Stage 2 diagram](documents/diagrams/stage-2-class-diagram.png)
 
-## Stage 3 Class Diagram
+### Stage 3 Class Diagram
 
 ![Stage 3 Class Diagram](documents/diagrams/stage-3-class-diagram.png)
 
 [View full-resolution Stage 3 diagram](documents/diagrams/stage-3-class-diagram.png)
 
-## Stage 3 Sequence Diagram
+### Stage 3 Sequence Diagram
 
 ![Stage 3 Class Diagram](documents/diagrams/stage-3-sequence-diagram.png)
 
@@ -228,10 +228,6 @@ Detailed test observations are documented in [Test Notes](documents/tests/test-n
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Victory | VICTORY | 6 | 0 | 5 | $86.80 | 82.8 | 18 |
 | Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
-
-Both documented scenarios complete all 18 turns.
-
-The tests demonstrate the game outcome conditions and exercise the restaurant's customer service workflow. Additional Stage 2 testing covers VIP discounts, different waiting penalties and Critic menu selection.
 
 ## Individual AI histories and recorded presentation
 
