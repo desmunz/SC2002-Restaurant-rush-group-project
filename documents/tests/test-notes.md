@@ -4,13 +4,28 @@ In this document, we discuss the strategies involved in reaching both Victory an
 
 ## Victory Strategy
 
-For customer n from 1 to 6, use this three-turn pattern:
+To reproduce the victory, follow this schedule. Numbers in the action descriptions are customer IDs for seating/ordering and order IDs for serving/preparation.
 
-1. Turn 3n - 2: Waiter 1, customer ID n; Chef 2.
-2. Turn 3n - 1: Waiter 2, customer ID n; Chef 1, order ID n.
-3. Turn 3n: Waiter 3, order ID n; Chef 2.
-
-Final result: VICTORY, six customers served, zero unhappy departures, five paid customers, $75.00 revenue, average paid satisfaction 84.0, 18 turns used. Customer 6 is served but unpaid at the end. Paid customers remain included in the served count.
+| Turn | Waiter action | Chef action |
+| --- | --- | --- |
+| 1 | Seat 1 | Pass |
+| 2 | Take order 1 | Prepare 1 |
+| 3 | Serve 1 | Pass |
+| 4 | Seat 2 | Pass |
+| 5 | Take order 2 | Prepare 2 |
+| 6 | Serve 2 | Pass |
+| 7 | Seat 3 | Pass |
+| 8 | Take order 3 | Prepare 3 |
+| 9 | Serve 3 | Pass |
+| 10 | Seat 4 | Pass |
+| 11 | Take order 4 | Prepare 4 |
+| 12 | Pass | Prepare 4 |
+| 13 | Serve 4 | Pass |
+| 14 | Seat 5 | Pass |
+| 15 | Take order 5 | Prepare 5 |
+| 16 | Serve 5 | Pass |
+| 17 | Seat 6 | Pass |
+| 18 | Take order 6 | Prepare 6 |
 
 [Replay input](victory-input.txt)
 
@@ -18,9 +33,20 @@ Final result: VICTORY, six customers served, zero unhappy departures, five paid 
 
 For all 18 turns, choose Waiter 4 and Chef 2.
 
-Final result: DEFEAT, zero served, two unhappy departures, zero paid, $0.00 revenue, average N/A and 18 turns used. Later arrivals have not all reached zero satisfaction by turn 18.
-
 [Replay input](defeat-input.txt)
+
+## Results
+
+| Replay | Result | Served | Unhappy departures | Paid | Revenue | Average paid satisfaction | Turns |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Victory | VICTORY | 5 | 0 | 5 | $76.50 | 79.6 | 18 |
+| Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
+
+In the victory case, the Critic orders Pasta, requiring two preparation turns. Customer 6 has a READY order but is not served or paid by the end. These results depend on the documented arrival schedule, menu order and random seeds.
+
+In the defeat case, two customers abandon; later arrivals have not all reached zero satisfaction by turn 18.
+
+The results given only cover the stated scenarios, not every possible action sequence.
 
 ## Input and reporting checks
 

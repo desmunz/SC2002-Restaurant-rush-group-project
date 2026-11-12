@@ -72,35 +72,23 @@ At the end of turn 18, the player wins if all three conditions are satisfied:
 
 ## Reproducible Test Runs
 
-| Replay | Result | Served | Unhappy departures | Paid | Revenue | Average paid satisfaction | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Victory | VICTORY | 5 | 0 | 5 | $76.50 | 79.6 | 18 |
-| Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
+See [Test Notes](documents/tests/test-notes.md) for additional information.
 
-To reproduce the victory, start a fresh Java process and follow the schedule below. Numbers in the action descriptions are customer IDs for seating/ordering and order IDs for serving/preparation.
+### Victory
 
-To reproduce the defeat, start a fresh Java process and pass every turn.
+Run the following in a powershell console to reproduce the victory ending:
 
-| Turn | Waiter action | Chef action |
-| --- | --- | --- |
-| 1 | Seat 1 | Pass |
-| 2 | Take order 1 | Prepare 1 |
-| 3 | Serve 1 | Pass |
-| 4 | Seat 2 | Pass |
-| 5 | Take order 2 | Prepare 2 |
-| 6 | Serve 2 | Pass |
-| 7 | Seat 3 | Pass |
-| 8 | Take order 3 | Prepare 3 |
-| 9 | Serve 3 | Pass |
-| 10 | Seat 4 | Pass |
-| 11 | Take order 4 | Prepare 4 |
-| 12 | Pass | Prepare 4 |
-| 13 | Serve 4 | Pass |
-| 14 | Seat 5 | Pass |
-| 15 | Take order 5 | Prepare 5 |
-| 16 | Serve 5 | Pass |
-| 17 | Seat 6 | Pass |
-| 18 | Take order 6 | Prepare 6 |
+```powershell
+Get-Content documents/tests/victory-input.txt | java -cp build/classes restaurantrush.Main
+```
+
+### Failure
+
+Run the following in a powershell console to reproduce the defeat ending:
+
+```powershell
+Get-Content documents/tests/defeat-input.txt | java -cp build/classes restaurantrush.Main
+```
 
 ## Stage 2 Diagrams
 
