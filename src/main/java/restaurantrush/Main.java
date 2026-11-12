@@ -15,6 +15,7 @@ import restaurantrush.model.staff.Waiter;
 import restaurantrush.model.customer.Customer;
 import restaurantrush.model.customer.VIPCustomer;
 import restaurantrush.model.customer.CriticCustomer;
+import restaurantrush.model.staff.Host;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,9 +24,10 @@ public class Main {
         Waiter waiter = new Waiter();
         Chef chef = new Chef();
         Cashier cashier = new Cashier();
+        Host host = new Host();
 
         GameState gameState = new GameState();
-        gameState.configureRestaurant(tables, waiter, chef, cashier);
+        gameState.configureRestaurant(tables, waiter, chef, cashier, host);
 
         int[] arrivalTurns = {1, 4, 7, 10, 13, 16};
 
@@ -43,6 +45,7 @@ public class Main {
         }
 
         Menu menu = new Menu();
+        menu.addItem(new ComboMeal("Salad + Pasta",menu.getItemByName("Salad"), menu.getItemByName("Pasta")));
         StandardPricingPolicy pricingPolicy = new StandardPricingPolicy();
 
         GameController controller = new GameController(gameState, menu, pricingPolicy);
