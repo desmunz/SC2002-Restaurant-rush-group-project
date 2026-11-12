@@ -12,6 +12,20 @@ public class ComboMeal extends MenuItem{
         this.secondComponent = secondComponent;
     }
 
+    private static void validateComponents(MenuItem first, MenuItem second) {
+
+        if (first == null || second == null) {
+            throw new IllegalArgumentException("Both combo components must be provided.");
+        }
+    }
+
+    public MenuItem getFirstComponent() {
+        return firstComponent;
+    }
+
+    public MenuItem getSecondComponent() {
+        return secondComponent;
+    }
     //need to write methods for calculate combo price 
     // need tpo write methods for calculate prep units
     
