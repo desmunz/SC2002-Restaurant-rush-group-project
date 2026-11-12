@@ -78,7 +78,7 @@ Get-Content documents/tests/victory-input.txt | java -cp build/classes restauran
 Run the following in a powershell console to reproduce the defeat ending:
 
 ```powershell
-Get-Content documents/tests/defeat-input.txt | java -cp build/classes restaurantrush.Main
+Get-Content documents/tests/defeat-input.txt | java -cp out restaurantrush.Main
 ```
 
 ## Stage 1 Diagrams
