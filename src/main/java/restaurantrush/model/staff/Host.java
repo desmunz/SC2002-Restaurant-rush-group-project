@@ -1,5 +1,8 @@
 package restaurantrush.model.staff;
 
+import restaurantrush.model.Table;
+import restaurantrush.model.customer.Customer;
+
 public class Host extends Staff{
 
     public Host(){
