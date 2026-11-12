@@ -16,6 +16,7 @@ import restaurantrush.model.customer.Customer;
 import restaurantrush.model.customer.VIPCustomer;
 import restaurantrush.model.customer.CriticCustomer;
 import restaurantrush.model.staff.Host;
+import restaurantrush.model.menu.ComboMeal;
 
 public class Main {
     public static void main(String[] args) {
