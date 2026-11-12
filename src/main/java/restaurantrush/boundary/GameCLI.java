@@ -204,7 +204,21 @@ public class GameCLI {
         String phase = controller.getCurrentPhase();
         while (true) {
             System.out.println("\nCurrent phase: " + phase);
-            if ("WAITER".equals(phase)) {
+            if ("HOST".equals(phase)) {
+                System.out.println("1) Seat a waiting customer");
+                System.out.println("2) Pass");
+
+                int choice = inputHandler.readInt("Choose an action: ");
+
+                switch (choice) {
+                    case 1:
+                        return "HOST:SEAT:" + readPositiveId("Customer ID: ");
+                    case 2:
+                        return "PHASE:PASS";
+                    default:
+                        displayMessage("Please choose 1 or 2.");
+                }
+            } else if ("WAITER".equals(phase)) {
                 System.out.println("1) Seat a customer");
                 System.out.println("2) Take an order");
                 System.out.println("3) Serve an order");
