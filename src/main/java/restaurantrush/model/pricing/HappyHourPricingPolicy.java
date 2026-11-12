@@ -12,4 +12,12 @@ public class HappyHourPricingPolicy {
         return !activatedBefore;
     }
 
+    public void activate() {
+        if (!canActivate()) {
+            throw new IllegalStateException("Happy Hour can only be activated once per game.");
+        }
+
+        activatedBefore = true;
+        remainingTurns = 2;
+    }
 }
