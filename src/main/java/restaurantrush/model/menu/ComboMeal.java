@@ -42,6 +42,17 @@ public class ComboMeal extends MenuItem{
         return (int) discountedPrice;
     }
 
-    // need tpo write methods for calculate prep units
+     private static int calculatePreparationUnits(MenuItem first, MenuItem second) {
+
+        validateComponents(first, second);
+
+        long totalUnits = (long) first.getPreparationUnits() + second.getPreparationUnits();
+
+        if (totalUnits > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Combo preparation time is too large.");
+        }
+
+        return (int) totalUnits;
+    }
     
 }
