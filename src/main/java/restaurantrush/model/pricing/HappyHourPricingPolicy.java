@@ -8,4 +8,8 @@ public class HappyHourPricingPolicy {
         this.activatedBefore = false;
         this.remainingTurns = 0;
     }
+    public boolean canActivate() {
+        return !activatedBefore;
+    }
+
 }
