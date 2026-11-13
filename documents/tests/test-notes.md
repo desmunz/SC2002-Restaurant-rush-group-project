@@ -1,56 +1,53 @@
-# Stage 1 Test Notes
+# Stage 3 Test Notes
 
 In this document, we discuss the strategies involved in reaching both Victory and Defeat endings, and also the verification of these results.
 
 ## Victory Strategy
 
-To reproduce the victory, follow this schedule. Numbers in the action descriptions are customer IDs for seating/ordering and order IDs for serving/preparation.
+Start a fresh game. Skip Happy Hour on turns 1–3 and activate it on turn 4. In the table, **Seat** and **Take order** use customer IDs. **Serve** and **Prepare** use order IDs. A dash means choose the staff member’s **Pass** option.
 
-| Turn | Waiter action | Chef action |
-| --- | --- | --- |
-| 1 | Seat 1 | Pass |
-| 2 | Take order 1 | Prepare 1 |
-| 3 | Serve 1 | Pass |
-| 4 | Seat 2 | Pass |
-| 5 | Take order 2 | Prepare 2 |
-| 6 | Serve 2 | Pass |
-| 7 | Seat 3 | Pass |
-| 8 | Take order 3 | Prepare 3 |
-| 9 | Serve 3 | Pass |
-| 10 | Seat 4 | Pass |
-| 11 | Take order 4 | Prepare 4 |
-| 12 | Pass | Prepare 4 |
-| 13 | Serve 4 | Pass |
-| 14 | Seat 5 | Pass |
-| 15 | Take order 5 | Prepare 5 |
-| 16 | Serve 5 | Pass |
-| 17 | Seat 6 | Pass |
-| 18 | Take order 6 | Prepare 6 |
+| Turn | Host | Waiter | Chef |
+| ---: | --- | --- | --- |
+| 1 | Seat 1 | Take order 1 | Prepare 1 |
+| 2 | — | Serve 1 | — |
+| 3 | — | — | — |
+| 4 | Seat 2 | Take order 2 | Prepare 2 |
+| 5 | — | — | Prepare 2 |
+| 6 | — | — | Prepare 2 |
+| 7 | Seat 3 | Serve 2 | — |
+| 8 | — | Take order 3 | Prepare 3 |
+| 9 | — | Serve 3 | — |
+| 10 | Seat 4 | Take order 4 | Prepare 4 |
+| 11 | — | — | Prepare 4 |
+| 12 | — | — | Prepare 4 |
+| 13 | Seat 5 | Serve 4 | — |
+| 14 | — | Take order 5 | Prepare 5 |
+| 15 | — | Serve 5 | — |
+| 16 | Seat 6 | Take order 6 | Prepare 6 |
+| 17 | — | Serve 6 | — |
+| 18 | — | — | — |
+
+Turn 4 demonstrates price locking in both directions. The Cashier collects **$15.00** for customer 1’s Burger, ordered before Happy Hour. On that same turn, the VIP orders Salad + Pasta for **$17.50**. The Chef finishes the combo on turn 6, the Waiter serves it on turn 7, and the VIP pays on turn 9 after Happy Hour has expired. Customer 6 is served on turn 17 and becomes ready to pay on turn 18, which accounts for six served but only five paid.
 
 [Replay input](victory-input.txt)
 
 ## Defeat Strategy
 
-For all 18 turns, choose Waiter 4 and Chef 2.
+On every turn, choose **2** to skip Happy Hour, **2** for the Host to pass, **4** for the Waiter to pass, and **2** for the Chef to pass. Two customers reach zero satisfaction. After turn 18, revenue is $0.00 and average paid satisfaction is `N/A`.
 
 [Replay input](defeat-input.txt)
 
 ## Results
 
 | Replay | Result | Served | Unhappy departures | Paid | Revenue | Average paid satisfaction | Turns |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Victory | VICTORY | 5 | 0 | 5 | $76.50 | 79.6 | 18 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Victory | VICTORY | 6 | 0 | 5 | $86.80 | 82.8 | 18 |
 | Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
 
-In the victory case, the Critic orders Pasta, requiring two preparation turns. Customer 6 has a READY order but is not served or paid by the end. These results depend on the documented arrival schedule, menu order and random seeds.
-
-In the defeat case, two customers abandon; later arrivals have not all reached zero satisfaction by turn 18.
-
-The results given only cover the stated scenarios, not every possible action sequence.
 
 ## Input and reporting checks
 
 - Both replays printed exactly 18 end-of-turn summaries, with final statistics before the result.
 - Nonnumeric action input, out-of-range actions, nonpositive IDs and nonexistent customer IDs were rejected and the game continued.
 - EOF at the action prompt, ID prompt, Chef prompt and after invalid input exited with no stack trace and no victory/defeat declaration.
-- Reproduction for immediate EOF in PowerShell: `@() | java -cp build/classes restaurantrush.Main`. Expected message: `Input ended. Game stopped before completion.`
+- Reproduction for immediate EOF in PowerShell: `@() | java -cp out restaurantrush.Main`. Expected message: `Input ended. Game stopped before completion.`
