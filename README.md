@@ -244,68 +244,39 @@ Detailed test observations are documented in [Test Notes](documents/tests/test-n
 | Victory | VICTORY | 6 | 0 | 5 | $86.80 | 82.8 | 18 |
 | Defeat | DEFEAT | 0 | 2 | 0 | $0.00 | N/A | 18 |
 
-## Individual AI histories and recorded presentation time stamp
+## Recorded presentation time stamp
 
-0:00 Intro & Background
-
-0:24 Constraints and Winning Criteria
-
-0:49 Evidence of Game Working
-
-1:07 Stage 1: BCE Framework
-
-2:13 Stage 1: Encapsulation
-
-2:47 Yong Yew's Individual Contribution and Key Learning
-
-3:19 Stage 2 Framework
-
-3:48 Stage 2: Polymorphic Inheritance
-
-4:12 Stage 2: Open/Close Principle
-
-4:40 Stage 2: Liskov Substituion Principle
-
-5:08 Stage 1 -> 2 Classes' Changes
-
-5:32 Ry Shengs's Individual Contribution and Key Learning
-
-6:08 Stage 3 Framework
-
-6:39 Stage 3: Class Inheritance and Composition (Host.java)
-
-6:55 Stage 3: Class Inheritance and Composition (ComboMeal.java)
-
-7:45 Stage 2 -> 3 Classes' Changes
-
-8:08 Elodie's Individual Contribution and Key Learning
-
-8:49 Strategy Pattern and. Remaining SOLID principles
-
-9:03 Stage 3: Strategy Pattern (Happy Hour Policy)
-
-10:20 SOLID Summary: Single Responsibility
-
-10:54 SOLID Summary: Open/Closed
-
-11:15 SOLID Summary: Liskov Substitution
-
-11:44 SOLID Summary: Interface Segregation
-
-12:07 SOLID Summary: Dependency Inversion
-
-12:33 Aidan's Individual Contribution and Key Learning
-
-13:08 Sequence Diagram
-
-13:34 Turn 4: Arrival and Promotion
-
-14:02 Turn 4: Host Seating and Stacked Pricing
-
-14:48 Turn 4-6: Chef Preparation
-
-15:07 Turn 7-9: Collecting Payment
-
-15:30 Summary
-
-16:05 Rahya's Individual Contribution and Key Learning
+| Start time | Presentation segment |
+| --- | --- |
+| 0:00 | Intro & Background |
+| 0:24 | Constraints and Winning Criteria |
+| 0:49 | Evidence of Game Working |
+| 1:07 | Stage 1: BCE Framework |
+| 2:13 | Stage 1: Encapsulation |
+| 2:47 | Yong Yew's Individual Contribution and Key Learning |
+| 3:19 | Stage 2 Framework |
+| 3:48 | Stage 2: Polymorphic Inheritance |
+| 4:12 | Stage 2: Open/Closed Principle |
+| 4:40 | Stage 2: Liskov Substitution Principle |
+| 5:08 | Stage 1 -> 2 Classes' Changes |
+| 5:32 | Ry Sheng's Individual Contribution and Key Learning |
+| 6:08 | Stage 3 Framework |
+| 6:39 | Stage 3: Class Inheritance and Composition (Host.java) |
+| 6:55 | Stage 3: Class Inheritance and Composition (ComboMeal.java) |
+| 7:45 | Stage 2 -> 3 Classes' Changes |
+| 8:08 | Elodie's Individual Contribution and Key Learning |
+| 8:49 | Strategy Pattern and Remaining SOLID Principles |
+| 9:03 | Stage 3: Strategy Pattern (Happy Hour Policy) |
+| 10:20 | SOLID Summary: Single Responsibility |
+| 10:54 | SOLID Summary: Open/Closed |
+| 11:15 | SOLID Summary: Liskov Substitution |
+| 11:44 | SOLID Summary: Interface Segregation |
+| 12:07 | SOLID Summary: Dependency Inversion |
+| 12:33 | Aidan's Individual Contribution and Key Learning |
+| 13:08 | Sequence Diagram |
+| 13:34 | Turn 4: Arrival and Promotion |
+| 14:02 | Turn 4: Host Seating and Stacked Pricing |
+| 14:48 | Turn 4-6: Chef Preparation |
+| 15:07 | Turn 7-9: Collecting Payment |
+| 15:30 | Summary |
+| 16:05 | Rahya's Individual Contribution and Key Learning |
