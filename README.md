@@ -184,6 +184,7 @@ Stage 3 introduces a Host, combo meals and a once-per-game Happy Hour, while pre
 
 ## Project Structure
 
+
 ```text
 src/main/java/restaurantrush/
 ├── Main.java
@@ -203,10 +204,24 @@ src/main/java/restaurantrush/
     │   ├── VIPCustomer.java
     │   └── CriticCustomer.java
     ├── enums/
+    │   ├── CustomerStatus.java
+    │   └── OrderStatus.java
     ├── menu/
+    │   ├── Menu.java
+    │   ├── MenuItem.java
+    │   └── ComboMeal.java
     ├── pricing/
+    │   ├── PricingPolicy.java
+    │   ├── StandardPricingPolicy.java
+    │   └── HappyHourPricingPolicy.java
     └── staff/
+        ├── Staff.java
+        ├── Host.java
+        ├── Waiter.java
+        ├── Chef.java
+        └── Cashier.java
 ```
+
 
 The project separates responsibilities into three main components:
 
